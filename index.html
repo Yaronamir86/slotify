@@ -1,227 +1,330 @@
+
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>GlobalBook SaaS - מערכת תורים גלובלית</title>
-  <meta name="theme-color" content="#8b6f47" />
-  <style>
-    :root{--bg:#f4efe7;--bg2:#efe6d9;--panel:rgba(255,255,255,.84);--panel-strong:rgba(255,255,255,.96);--text:#1f1c17;--muted:#6a645b;--line:rgba(60,50,36,.12);--accent:#8b6f47;--accent2:#b69767;--ok:#1f7a46;--warn:#b7791f;--danger:#b44444;--shadow:0 18px 42px rgba(32,24,15,.08);--soft:0 10px 24px rgba(32,24,15,.06);--r:24px;--max:1360px}
-    *{box-sizing:border-box}html,body{margin:0;padding:0}body{min-height:100vh;color:var(--text);font-family:Inter,Arial,sans-serif;background:radial-gradient(circle at top right, rgba(255,248,236,.95) 0%, rgba(255,248,236,.35) 20%, transparent 42%),linear-gradient(180deg,var(--bg) 0%,var(--bg2) 100%)}button,input,select,textarea{font:inherit}button{cursor:pointer}a{text-decoration:none;color:inherit}.hidden{display:none!important}.shell{width:min(var(--max),100%);margin:0 auto;padding:14px 14px 40px}.topbar{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:12px;background:rgba(255,255,255,.72);border:1px solid var(--line);border-radius:24px;backdrop-filter:blur(14px);box-shadow:var(--soft);padding:12px;margin-bottom:14px}.brand{display:flex;align-items:center;gap:12px;min-width:0}.mark{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;flex:0 0 auto;background:linear-gradient(135deg,#fbf2df,#d6bd95);color:#604927;font-weight:800;box-shadow:inset 0 1px 0 rgba(255,255,255,.95)}.brand h1{margin:0;font-size:1rem;line-height:1.05;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.brand p{margin:4px 0 0;color:var(--muted);font-size:.85rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.topActions{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end}.btnGhost,.btnPrimary,.btnDanger,.chip,.tabBtn,.segBtn{border:none;border-radius:16px;padding:12px 14px;transition:.18s ease}.btnGhost,.tabBtn,.segBtn,.chip{background:rgba(255,255,255,.76);border:1px solid var(--line);color:var(--text)}.btnPrimary{color:#fff;background:linear-gradient(135deg,var(--accent),var(--accent2));box-shadow:0 14px 30px rgba(139,111,71,.20)}.btnDanger{background:#fff3f3;border:1px solid rgba(180,68,68,.15);color:var(--danger)}.chip{padding:9px 11px;color:var(--muted);font-size:.9rem}.btnGhost:hover,.btnPrimary:hover,.btnDanger:hover,.chip:hover,.tabBtn:hover,.segBtn:hover{transform:translateY(-1px)}.hero{display:grid;grid-template-columns:1fr;gap:14px;margin-bottom:14px}.card,.heroMain,.heroSide,.panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);backdrop-filter:blur(14px)}.heroMain{padding:22px;position:relative;overflow:hidden}.heroMain:after{content:"";position:absolute;inset:auto -80px -110px auto;width:260px;height:260px;background:radial-gradient(circle, rgba(191,158,108,.22), rgba(191,158,108,0));pointer-events:none}.eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.74);border:1px solid var(--line);color:var(--muted);padding:8px 12px;border-radius:999px;font-size:.88rem;margin-bottom:14px}.heroMain h2{margin:0 0 10px;font-size:clamp(1.8rem,7vw,3.6rem);line-height:1.02;letter-spacing:-.05em;max-width:820px}.heroMain p{margin:0;color:var(--muted);line-height:1.75;max-width:820px}.heroActions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}.statsGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;padding:14px}.stat{background:rgba(255,255,255,.68);border:1px solid var(--line);border-radius:20px;padding:14px}.stat strong{display:block;font-size:1.35rem;letter-spacing:-.04em;margin-bottom:4px}.stat span{font-size:.9rem;color:var(--muted)}.view{display:none}.view.active{display:block}.twoCol{display:grid;grid-template-columns:1fr;gap:14px}.panel{padding:16px}.head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px}.head h3{margin:0;font-size:1.05rem;letter-spacing:-.03em}.muted{color:var(--muted)}.grid2,.grid3,.cards{display:grid;grid-template-columns:1fr;gap:10px}.itemCard,.serviceCard,.employeeCard,.slot,.day,.summaryCard,.tableCard,.portalCard,.apptCard,.memberCard,.priceCard{border:1px solid var(--line);background:rgba(255,255,255,.74);border-radius:20px}.itemCard,.serviceCard,.employeeCard,.summaryCard,.tableCard,.portalCard,.apptCard,.memberCard,.priceCard{padding:14px}.serviceCard,.employeeCard,.day,.slot{cursor:pointer;transition:.18s ease}.serviceCard:hover,.employeeCard:hover,.day:hover,.slot:hover{transform:translateY(-1px);background:rgba(255,255,255,.9)}.selected{outline:2px solid rgba(139,111,71,.48);background:rgba(255,252,246,.98)}.row{display:flex;align-items:center;gap:10px}.between{display:flex;align-items:center;justify-content:space-between;gap:10px}.tag{background:#f6ead5;color:#6f562f;padding:7px 10px;border-radius:999px;font-size:.82rem;white-space:nowrap}.tag.ok{background:#eef9f1;color:var(--ok)}.tag.warn{background:#fff7eb;color:var(--warn)}.tag.danger{background:#fff1f1;color:var(--danger)}.title{margin:0 0 8px;font-size:1rem;letter-spacing:-.02em}.sub{margin:0;color:var(--muted);line-height:1.65;font-size:.93rem}.formGrid{display:grid;grid-template-columns:1fr;gap:10px}.field{display:flex;flex-direction:column;gap:7px}.field label{font-size:.9rem;color:var(--muted)}.field input,.field textarea,.field select{width:100%;border:1px solid var(--line);background:rgba(255,255,255,.84);outline:none;border-radius:16px;padding:13px 14px;color:var(--text)}.field textarea{min-height:100px;resize:vertical}.seg{display:flex;gap:8px;flex-wrap:wrap}.segBtn.active,.tabBtn.active{background:#fffaf3;outline:2px solid rgba(139,111,71,.24)}.notice{border-radius:18px;padding:12px 14px;border:1px solid var(--line);background:rgba(255,255,255,.8);color:var(--muted);line-height:1.65;font-size:.93rem}.notice.ok{background:#f1fbf5;border-color:rgba(31,122,70,.14);color:var(--ok)}.section{margin-top:18px}.calendarRow{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px}.day{text-align:center;padding:12px 8px}.day small{display:block;color:var(--muted);margin-bottom:6px;font-size:.8rem}.slots{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.slot{text-align:center;padding:14px 10px;font-weight:700}.summaryStack,.apptList,.membersList{display:grid;gap:10px}.priceBig{font-size:1.9rem;letter-spacing:-.05em;margin-top:4px}.stickyBox{position:sticky;bottom:10px;z-index:20;margin-top:12px;background:rgba(255,255,255,.84);backdrop-filter:blur(16px);border:1px solid var(--line);border-radius:22px;box-shadow:var(--shadow);padding:12px}.stickyActions{display:grid;grid-template-columns:1fr;gap:8px;margin-top:10px}.tableWrap{overflow:auto}table{width:100%;border-collapse:collapse;min-width:700px}th,td{padding:12px 10px;text-align:right;border-bottom:1px solid var(--line);font-size:.92rem}th{color:var(--muted);font-weight:600}tr:last-child td{border-bottom:none}.authOverlay{position:fixed;inset:0;background:rgba(23,20,16,.42);backdrop-filter:blur(10px);z-index:80;display:none;align-items:flex-end;justify-content:center;padding:12px}.authOverlay.open{display:flex}.authModal{width:min(820px,100%);max-height:92vh;overflow:auto;background:var(--panel-strong);border:1px solid var(--line);border-radius:28px 28px 18px 18px;box-shadow:var(--shadow);padding:16px}.portalSwitcher{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}.copyLine{display:flex;gap:8px;flex-wrap:wrap;align-items:center;background:rgba(255,255,255,.72);border:1px solid var(--line);border-radius:16px;padding:10px 12px}.priceCard strong{display:block;font-size:1.6rem;margin-bottom:6px;letter-spacing:-.04em}.mt14{margin-top:14px}.mt18{margin-top:18px}@media (min-width:760px){.shell{padding:20px 20px 46px}.hero{grid-template-columns:1.18fr .82fr}.twoCol{grid-template-columns:1.08fr .92fr}.grid2{grid-template-columns:repeat(2,1fr)}.grid3{grid-template-columns:repeat(3,1fr)}.cards{grid-template-columns:repeat(2,1fr)}.formGrid{grid-template-columns:repeat(2,1fr)}.span2{grid-column:span 2}.calendarRow{grid-template-columns:repeat(7,1fr)}.slots{grid-template-columns:repeat(4,1fr)}.stickyActions{grid-template-columns:1fr 1fr}.authOverlay{align-items:center}.authModal{border-radius:28px;padding:20px}}@media (min-width:1080px){.shell{padding:28px 22px 52px}.topbar{padding:14px 16px}.heroMain{padding:28px}.panel{padding:20px}.statsGrid{padding:18px}}
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MiniBooking SaaS Platform</title>
+<style>
+body{font-family:Arial;background:#f5f5f5;margin:0}
+header{background:#111;color:#fff;padding:14px}
+.container{max-width:1100px;margin:auto;padding:20px}
+.card{background:#fff;padding:16px;border-radius:10px;margin-bottom:14px}
+button{padding:10px 14px;border:none;border-radius:6px;background:#111;color:#fff;cursor:pointer}
+input,select{padding:8px;width:100%;margin-top:4px;margin-bottom:10px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.hidden{display:none}
+.service{border:1px solid #ddd;padding:10px;border-radius:8px;margin-bottom:8px;cursor:pointer}
+.selected{border:2px solid #111}
+</style>
 </head>
 <body>
-  <div class="shell">
-    <header class="topbar">
-      <div class="brand"><div class="mark">GB</div><div><h1>GlobalBook SaaS</h1><p>מערכת תורים רב־עסקית גלובלית בקובץ HTML אחד</p></div></div>
-      <div class="topActions">
-        <span id="topStatus" class="chip">פלטפורמה</span>
-        <button class="btnGhost" id="goHomeBtn">בית</button>
-        <button class="btnGhost" id="openPortalBtn">פורטל לקוח</button>
-        <button class="btnGhost hidden" id="openBusinessBtn">דשבורד עסק</button>
-        <button class="btnGhost" id="openAuthBtn">כניסה / הרשמה</button>
-        <button class="btnGhost hidden" id="logoutBtn">התנתק</button>
-      </div>
-    </header>
 
-    <section id="homeView" class="view active">
-      <div class="hero">
-        <div class="heroMain">
-          <div class="eyebrow">Multi-Tenant • Businesses + Customers • Mobile First</div>
-          <h2>מערכת SaaS גלובלית שבה גם בית העסק הוא לקוח של הפלטפורמה.</h2>
-          <p>בנויה כדמו מלא: הרשמת עסק, כניסת עסק, ניהול שירותים ועובדים, יצירת פורטל הזמנות, התחברות לקוחות קצה, הזמנת תורים, ניהול תורים וחבילות מחיר.</p>
-          <div class="heroActions">
-            <button class="btnPrimary" id="heroStartBusinessBtn">פתח עסק חדש</button>
-            <button class="btnGhost" id="heroOpenPortalBtn">פתח פורטל לקוח</button>
-          </div>
-        </div>
-        <aside class="heroSide card"><div class="statsGrid"><div class="stat"><strong>Business Owner</strong><span>נרשם לפלטפורמה</span></div><div class="stat"><strong>Customer</strong><span>נרשם לכל עסק</span></div><div class="stat"><strong>Plans</strong><span>Starter / Pro / Scale</span></div><div class="stat"><strong>Global</strong><span>שפה, מטבע, מדינה ואזור זמן</span></div></div></aside>
-      </div>
+<header>
+MiniBooking SaaS Platform
+</header>
 
-      <div class="grid3">
-        <div class="priceCard"><strong>Starter</strong><p class="sub">עד 2 עובדים, שירותים בסיסיים, פורטל הזמנות, לקוחות ותורים.</p><div class="mt14"><span class="tag">₪49 / $15</span></div></div>
-        <div class="priceCard"><strong>Pro</strong><p class="sub">עובדים ללא הגבלה, דוחות, לקוחות חוזרים, אוטומציות בסיסיות.</p><div class="mt14"><span class="tag ok">₪129 / $39</span></div></div>
-        <div class="priceCard"><strong>Scale</strong><p class="sub">ריבוי סניפים, צוות ניהולי, הרחבות, white label עתידי.</p><div class="mt14"><span class="tag warn">₪329 / $99</span></div></div>
-      </div>
+<div class="container">
 
-      <div class="twoCol mt18">
-        <div class="panel"><div class="head"><h3>עסקים במערכת</h3><span class="muted">נשמר מקומית לצורך דמו</span></div><div id="businessCatalog" class="cards"></div></div>
-        <div class="panel"><div class="head"><h3>מה כלול בגרסה הזו</h3></div><div class="summaryStack"><div class="summaryCard"><strong>הרשמת עסק</strong><p class="sub">Owner, שם עסק, slug, מדינה, מטבע, שפה וחבילה.</p></div><div class="summaryCard"><strong>דשבורד עסק</strong><p class="sub">שירותים, עובדים, תורים, לקוחות, פורטל הזמנות.</p></div><div class="summaryCard"><strong>פורטל לקוח קצה</strong><p class="sub">בחירת עסק, התחברות לקוח, תורים שלי, הזמנה חדשה.</p></div><div class="summaryCard"><strong>מודל רב־עסקי</strong><p class="sub">כל הנתונים מופרדים לפי businessId.</p></div></div></div>
-      </div>
-    </section>
+<div id="platformView">
+<div class="card">
+<h2>Super Admin – כל העסקים</h2>
+<button onclick="showCreateBusiness()">צור עסק חדש</button>
+</div>
 
-    <section id="businessView" class="view">
-      <div class="twoCol">
-        <div class="panel">
-          <div class="head"><h3>פרטי העסק</h3><span id="businessPlanTag" class="tag"></span></div>
-          <div id="businessHeaderCard" class="summaryCard"></div>
-          <div class="section"><div class="head"><h3>קישור פורטל ההזמנות</h3><span class="muted">פורטל לקוח קצה</span></div><div class="copyLine"><span id="portalSlugLine" class="muted"></span><button class="btnGhost" id="copyPortalSlugBtn">העתק</button><button class="btnPrimary" id="openBusinessPortalBtn">פתח פורטל</button></div></div>
-          <div class="section"><div class="head"><h3>צוות העסק</h3><button class="btnGhost" id="openAddEmployeeBtn">הוסף עובד</button></div><div id="employeesList" class="cards"></div></div>
-          <div class="section"><div class="head"><h3>שירותים</h3><button class="btnGhost" id="openAddServiceBtn">הוסף שירות</button></div><div id="servicesList" class="cards"></div></div>
-        </div>
-        <div class="panel">
-          <div class="head"><h3>דשבורד ניהולי</h3><span class="muted">מבט מהיר</span></div>
-          <div class="grid2" id="businessStats"></div>
-          <div class="section"><div class="head"><h3>חברי צוות ניהול</h3></div><div id="membersList" class="membersList"></div></div>
-          <div class="section"><div class="head"><h3>תורים</h3><button class="btnGhost" id="seedDemoDataBtn">צור דמו מהיר</button></div><div class="tableCard tableWrap"><table><thead><tr><th>לקוח</th><th>שירות</th><th>עובד</th><th>מועד</th><th>סטטוס</th></tr></thead><tbody id="appointmentsTable"></tbody></table></div></div>
-          <div class="section"><div class="head"><h3>לקוחות העסק</h3></div><div class="tableCard tableWrap"><table><thead><tr><th>שם</th><th>טלפון</th><th>אימייל</th><th>מס׳ תורים</th></tr></thead><tbody id="customersTable"></tbody></table></div></div>
-        </div>
-      </div>
-    </section>
+<div id="businessList"></div>
+</div>
 
-    <section id="portalView" class="view">
-      <div class="twoCol">
-        <div class="panel">
-          <div class="head"><h3>בחירת עסק</h3><span class="muted">פורטל הזמנות גלובלי</span></div>
-          <div class="formGrid"><div class="field span2"><label>בחר עסק</label><select id="portalBusinessSelect"></select></div></div>
-          <div id="portalBusinessCard" class="portalCard mt14"></div>
-          <div class="section"><div class="head"><h3>התחברות / הרשמת לקוח לעסק</h3><span class="muted">לקוחות נשמרים לכל עסק בנפרד</span></div><div class="portalSwitcher"><button class="tabBtn active" data-customer-tab="login">כניסת לקוח</button><button class="tabBtn" data-customer-tab="register">הרשמת לקוח</button></div><div id="portalAuthMessage" class="notice hidden"></div><div id="customerLoginTab" class="mt14"><div class="formGrid"><div class="field"><label>טלפון</label><input id="customerLoginPhone" placeholder="050-0000000" /></div><div class="field"><label>סיסמה</label><input id="customerLoginPassword" type="password" placeholder="******" /></div></div><div class="row mt14"><button class="btnPrimary" id="customerLoginBtn">כניסה</button></div></div><div id="customerRegisterTab" class="mt14 hidden"><div class="formGrid"><div class="field"><label>שם מלא</label><input id="customerRegisterName" placeholder="שם הלקוח" /></div><div class="field"><label>טלפון</label><input id="customerRegisterPhone" placeholder="050-0000000" /></div><div class="field"><label>אימייל</label><input id="customerRegisterEmail" placeholder="name@example.com" /></div><div class="field"><label>סיסמה</label><input id="customerRegisterPassword" type="password" placeholder="בחר סיסמה" /></div></div><div class="row mt14"><button class="btnPrimary" id="customerRegisterBtn">צור חשבון לקוח</button></div></div></div>
-          <div class="section"><div class="head"><h3>תורים שלי</h3><span id="portalCustomerLabel" class="muted">לקוח לא מחובר</span></div><div id="portalAppointmentsList" class="apptList"><div class="notice">יש להתחבר כלקוח כדי לראות תורים.</div></div></div>
-        </div>
-        <div class="panel">
-          <div class="head"><h3>הזמנת תור</h3><span class="muted">מחובר לעסק הנבחר</span></div>
-          <div class="section"><div class="head"><h3>1. בחירת שירות</h3></div><div id="portalServices" class="cards"></div></div>
-          <div class="section"><div class="head"><h3>2. בחירת איש צוות</h3></div><div id="portalEmployees" class="cards"></div></div>
-          <div class="section"><div class="head"><h3>3. יום ושעה</h3></div><div id="portalDays" class="calendarRow"></div><div id="portalSlots" class="slots"></div></div>
-          <div class="section"><div class="head"><h3>4. הערה להזמנה</h3></div><div class="formGrid"><div class="field span2"><label>הערות</label><textarea id="portalBookingNotes" placeholder="בקשה מיוחדת, הערה לשירות, העדפה מסוימת..."></textarea></div></div></div>
-          <div class="stickyBox"><div class="summaryStack"><div class="summaryCard"><strong>סיכום הזמנה</strong><p id="portalSummaryText" class="sub">יש לבחור שירות, איש צוות, יום ושעה.</p><div id="portalSummaryPrice" class="priceBig">₪0</div></div></div><div class="stickyActions"><button class="btnPrimary" id="portalConfirmBtn">אשר תור</button><button class="btnGhost" id="portalWaitlistBtn">רשימת המתנה</button></div></div>
-        </div>
-      </div>
-    </section>
-  </div>
+<div id="createBusinessView" class="hidden">
+<div class="card">
+<h2>יצירת עסק</h2>
 
-  <div id="authOverlay" class="authOverlay"><div class="authModal"><div class="head"><h3>כניסת עסק / הרשמת עסק</h3><button class="btnGhost" id="closeAuthModalBtn">סגור</button></div><div class="portalSwitcher"><button class="tabBtn active" data-owner-tab="login">כניסת עסק</button><button class="tabBtn" data-owner-tab="register">הרשמת עסק</button></div><div id="ownerAuthMessage" class="notice hidden"></div><div id="ownerLoginTab" class="mt14"><div class="formGrid"><div class="field"><label>אימייל בעלים</label><input id="ownerLoginEmail" placeholder="owner@business.com" /></div><div class="field"><label>סיסמה</label><input id="ownerLoginPassword" type="password" placeholder="******" /></div></div><div class="row mt14"><button class="btnPrimary" id="ownerLoginBtn">כניסה</button></div></div><div id="ownerRegisterTab" class="mt14 hidden"><div class="formGrid"><div class="field"><label>שם בעל העסק</label><input id="ownerName" placeholder="ירון אמיר" /></div><div class="field"><label>אימייל בעל העסק</label><input id="ownerEmail" placeholder="owner@business.com" /></div><div class="field"><label>סיסמה</label><input id="ownerPassword" type="password" placeholder="בחר סיסמה" /></div><div class="field"><label>שם העסק</label><input id="businessName" placeholder="Barber Pro TLV" /></div><div class="field"><label>Slug ייחודי</label><input id="businessSlug" placeholder="barber-pro-tlv" /></div><div class="field"><label>תחום</label><select id="businessCategory"><option>Barber / Hair</option><option>Clinic / Wellness</option><option>Spa / Beauty</option><option>Consulting / Service</option></select></div><div class="field"><label>מדינה</label><select id="businessCountry"><option value="IL">Israel</option><option value="US">United States</option><option value="GB">United Kingdom</option><option value="DE">Germany</option></select></div><div class="field"><label>שפה</label><select id="businessLanguage"><option value="he">עברית</option><option value="en">English</option></select></div><div class="field"><label>מטבע</label><select id="businessCurrency"><option value="ILS">ILS</option><option value="USD">USD</option><option value="EUR">EUR</option><option value="GBP">GBP</option></select></div><div class="field"><label>אזור זמן</label><select id="businessTimezone"><option>Asia/Jerusalem</option><option>Europe/London</option><option>Europe/Berlin</option><option>America/New_York</option></select></div><div class="field span2"><label>תוכנית מנוי</label><div class="seg" id="planSeg"><button class="segBtn active" data-plan="Starter">Starter</button><button class="segBtn" data-plan="Pro">Pro</button><button class="segBtn" data-plan="Scale">Scale</button></div></div></div><div class="row mt14"><button class="btnPrimary" id="ownerRegisterBtn">צור עסק חדש</button></div></div></div></div>
-  <div id="quickModal" class="authOverlay"><div class="authModal"><div class="head"><h3 id="quickModalTitle">חלון מהיר</h3><button class="btnGhost" id="closeQuickModalBtn">סגור</button></div><div id="quickModalBody"></div></div></div>
+שם העסק
+<input id="bizName">
 
-  <script>
-    const DB_KEYS={businesses:"gb_businesses_v1",ownerSession:"gb_owner_session_v1",customerSession:"gb_customer_session_v1"};
-    const state={currentView:"home",ownerSession:null,customerSession:null,selectedPortalBusinessId:null,portalBooking:{serviceId:null,employeeId:null,day:null,slot:null}};
-    const DEFAULT_DAYS=[{id:1,label:"א׳",date:"10 מרץ"},{id:2,label:"ב׳",date:"11 מרץ"},{id:3,label:"ג׳",date:"12 מרץ"},{id:4,label:"ד׳",date:"13 מרץ"},{id:5,label:"ה׳",date:"14 מרץ"},{id:6,label:"ו׳",date:"15 מרץ"},{id:7,label:"ש׳",date:"16 מרץ"}];
-    const DEFAULT_SLOTS=["09:00","09:30","10:00","10:30","11:30","12:00","13:30","15:00"];
-    const $=id=>document.getElementById(id);
-    const uid=(p="id")=>`${p}_${Date.now()}_${Math.random().toString(36).slice(2,8)}`;
-    const normalize=(v="")=>v.trim().toLowerCase();
-    const phoneNorm=(v="")=>v.replace(/[^\d]/g,"");
-    const money=(c,a)=>`${({ILS:"₪",USD:"$",EUR:"€",GBP:"£"}[c]||c)}${a}`;
-    const getBusinesses=()=>JSON.parse(localStorage.getItem(DB_KEYS.businesses)||"[]");
-    const setBusinesses=data=>localStorage.setItem(DB_KEYS.businesses,JSON.stringify(data));
-    const getOwnerSession=()=>JSON.parse(localStorage.getItem(DB_KEYS.ownerSession)||"null");
-    const setOwnerSession=data=>localStorage.setItem(DB_KEYS.ownerSession,JSON.stringify(data));
-    const clearOwnerSession=()=>localStorage.removeItem(DB_KEYS.ownerSession);
-    const getCustomerSession=()=>JSON.parse(localStorage.getItem(DB_KEYS.customerSession)||"null");
-    const setCustomerSession=data=>localStorage.setItem(DB_KEYS.customerSession,JSON.stringify(data));
-    const clearCustomerSession=()=>localStorage.removeItem(DB_KEYS.customerSession);
-    const findBusinessById=id=>getBusinesses().find(b=>b.id===id);
+Slug (כתובת)
+<input id="bizSlug">
 
-    function seedInitial(){
-      if(getBusinesses().length) return;
-      const demo={id:uid("biz"),name:"Opir Studio",slug:"opir-studio",category:"Barber / Hair",country:"IL",language:"he",currency:"ILS",timezone:"Asia/Jerusalem",plan:"Pro",owner:{id:uid("owner"),name:"אופיר",email:"owner@opir.co",password:"123456"},members:[{id:uid("member"),name:"אופיר",email:"owner@opir.co",role:"owner"}],employees:[{id:uid("emp"),name:"אופיר",role:"ספר ראשי"},{id:uid("emp"),name:"נועם",role:"ברבר"}],services:[{id:uid("srv"),name:"תספורת גבר",duration:30,price:70,description:"שירות מהיר ומדויק",category:"Hair"},{id:uid("srv"),name:"תספורת + זקן",duration:50,price:120,description:"שירות משולב פופולרי",category:"Hair"}],customers:[{id:uid("cus"),name:"ירון אמיר",phone:"0501111111",email:"demo@client.com",password:"123456"}],appointments:[]};
-      demo.appointments.push({id:uid("appt"),customerId:demo.customers[0].id,customerName:demo.customers[0].name,serviceId:demo.services[0].id,serviceName:demo.services[0].name,employeeId:demo.employees[0].id,employeeName:demo.employees[0].name,dateLabel:"11 מרץ",slot:"10:30",notes:"",status:"נקבע",createdAt:Date.now()});
-      setBusinesses([demo]);
-    }
+<button onclick="createBusiness()">צור עסק</button>
+<button onclick="backHome()">חזור</button>
+</div>
+</div>
 
-    function refreshTopbar(){
-      const owner=state.ownerSession, customer=state.customerSession;
-      $("openBusinessBtn").classList.toggle("hidden",!owner);
-      $("logoutBtn").classList.toggle("hidden",!owner&&!customer);
-      $("openAuthBtn").classList.toggle("hidden",!!owner);
-      if(owner){ const b=findBusinessById(owner.businessId); $("topStatus").textContent=`עסק: ${b?.name||"לא ידוע"}`; }
-      else if(customer){ const b=findBusinessById(customer.businessId); $("topStatus").textContent=`לקוח: ${customer.name} / ${b?.name||""}`; }
-      else $("topStatus").textContent="פלטפורמה";
-    }
+<div id="businessAdminView" class="hidden">
+<div class="card">
+<h2 id="adminTitle"></h2>
 
-    function showView(view){
-      state.currentView=view; document.querySelectorAll(".view").forEach(v=>v.classList.remove("active")); $(view+"View").classList.add("active");
-      refreshTopbar(); if(view==="home") renderHome(); if(view==="business") renderBusinessDashboard(); if(view==="portal") renderPortal();
-      window.scrollTo({top:0,behavior:"smooth"});
-    }
+<button onclick="openPublicPage()">פתח עמוד לקוחות</button>
 
-    function renderHome(){
-      const businesses=getBusinesses();
-      $("businessCatalog").innerHTML=businesses.length?businesses.map(b=>`<div class="itemCard"><div class="between"><h4 class="title">${b.name}</h4><span class="tag">${b.plan}</span></div><p class="sub">${b.category} · ${b.country} · ${b.language.toUpperCase()} · ${b.currency}</p><div class="row mt14"><button class="btnGhost" data-open-biz="${b.id}">דשבורד</button><button class="btnPrimary" data-open-portal="${b.id}">פורטל לקוח</button></div></div>`).join(""):`<div class="notice">עדיין אין עסקים במערכת. פתח עסק חדש כדי להתחיל.</div>`;
-      document.querySelectorAll("[data-open-biz]").forEach(btn=>btn.onclick=()=>{ const b=findBusinessById(btn.dataset.openBiz); openAuthModal("login"); $("ownerLoginEmail").value=b.owner.email; $("ownerLoginPassword").focus(); });
-      document.querySelectorAll("[data-open-portal]").forEach(btn=>btn.onclick=()=>{ state.selectedPortalBusinessId=btn.dataset.openPortal; state.portalBooking={serviceId:null,employeeId:null,day:null,slot:null}; showView("portal"); });
-    }
+<h3>שירותים</h3>
 
-    function renderBusinessDashboard(){
-      const owner=state.ownerSession; if(!owner){ showView("home"); return; }
-      const b=findBusinessById(owner.businessId); if(!b) return logoutAll();
-      $("businessPlanTag").textContent=b.plan;
-      $("businessHeaderCard").innerHTML=`<div class="between"><div><h4 class="title">${b.name}</h4><p class="sub">${b.category} · ${b.country} · ${b.timezone}</p></div><span class="tag">${b.slug}</span></div><div class="grid2 mt14"><div class="summaryCard"><strong>בעלים</strong><p class="sub">${b.owner.name} · ${b.owner.email}</p></div><div class="summaryCard"><strong>תצורה גלובלית</strong><p class="sub">${b.language.toUpperCase()} · ${b.currency} · ${b.plan}</p></div></div>`;
-      $("portalSlugLine").textContent=`globalbook.app/b/${b.slug}`;
-      $("employeesList").innerHTML=b.employees.length?b.employees.map(emp=>`<div class="employeeCard"><div class="between"><h4 class="title">${emp.name}</h4><span class="tag">${emp.role}</span></div><p class="sub">מזהה עובד: ${emp.id.slice(0,10)}</p></div>`).join(""):`<div class="notice">אין עובדים עדיין.</div>`;
-      $("servicesList").innerHTML=b.services.length?b.services.map(s=>`<div class="serviceCard"><div class="between"><h4 class="title">${s.name}</h4><span class="tag">${money(b.currency,s.price)}</span></div><p class="sub">${s.duration} דק׳ · ${s.category}</p><p class="sub">${s.description||""}</p></div>`).join(""):`<div class="notice">אין שירותים עדיין.</div>`;
-      const revenue=b.appointments.filter(a=>a.status!=="בוטל").reduce((sum,a)=>sum+((b.services.find(x=>x.id===a.serviceId)?.price)||0),0);
-      $("businessStats").innerHTML=`<div class="stat"><strong>${b.appointments.length}</strong><span>תורים</span></div><div class="stat"><strong>${b.customers.length}</strong><span>לקוחות</span></div><div class="stat"><strong>${b.employees.length}</strong><span>עובדים</span></div><div class="stat"><strong>${money(b.currency,revenue)}</strong><span>הכנסה משוערת</span></div>`;
-      $("membersList").innerHTML=b.members.map(m=>`<div class="memberCard"><div class="between"><h4 class="title">${m.name}</h4><span class="tag">${m.role}</span></div><p class="sub">${m.email}</p></div>`).join("");
-      $("appointmentsTable").innerHTML=b.appointments.length?b.appointments.map(a=>`<tr><td>${a.customerName}</td><td>${a.serviceName}</td><td>${a.employeeName}</td><td>${a.dateLabel} · ${a.slot}</td><td><span class="tag ${a.status==="בוטל"?"danger":"ok"}">${a.status}</span></td></tr>`).join(""):`<tr><td colspan="5">אין תורים עדיין.</td></tr>`;
-      $("customersTable").innerHTML=b.customers.length?b.customers.map(c=>`<tr><td>${c.name}</td><td>${c.phone}</td><td>${c.email||"-"}</td><td>${b.appointments.filter(a=>a.customerId===c.id).length}</td></tr>`).join(""):`<tr><td colspan="4">אין לקוחות עדיין.</td></tr>`;
-    }
+שם שירות
+<input id="serviceName">
 
-    function renderPortal(){
-      const businesses=getBusinesses(), select=$("portalBusinessSelect");
-      select.innerHTML=businesses.map(b=>`<option value="${b.id}">${b.name} (${b.slug})</option>`).join("");
-      if(!state.selectedPortalBusinessId&&businesses[0]) state.selectedPortalBusinessId=businesses[0].id;
-      select.value=state.selectedPortalBusinessId||"";
-      const b=findBusinessById(state.selectedPortalBusinessId); if(!b){ $("portalBusinessCard").innerHTML=`<div class="notice">אין עסקים זמינים.</div>`; return; }
-      $("portalBusinessCard").innerHTML=`<div class="between"><div><h4 class="title">${b.name}</h4><p class="sub">${b.category} · ${b.country} · ${b.language.toUpperCase()} · ${b.currency}</p></div><span class="tag">${b.plan}</span></div>`;
-      renderPortalCustomerArea(b); renderPortalBookingArea(b);
-    }
+מחיר
+<input id="servicePrice">
 
-    function renderPortalCustomerArea(b){
-      const s=state.customerSession, active=s&&s.businessId===b.id; $("portalCustomerLabel").textContent=active?s.name:"לקוח לא מחובר";
-      if(!active){ $("portalAppointmentsList").innerHTML=`<div class="notice">יש להתחבר או להירשם כלקוח של העסק הזה.</div>`; return; }
-      const customer=b.customers.find(c=>c.id===s.customerId), rows=b.appointments.filter(a=>a.customerId===customer.id).sort((a,b)=>b.createdAt-a.createdAt);
-      $("portalAppointmentsList").innerHTML=rows.length?rows.map(a=>`<div class="apptCard"><div class="between"><h4 class="title">${a.serviceName}</h4><span class="tag ${a.status==="בוטל"?"danger":"ok"}">${a.status}</span></div><p class="sub">${a.employeeName} · ${a.dateLabel} · ${a.slot}</p><div class="row mt14"><button class="btnDanger" data-cancel-portal="${a.id}">בטל תור</button></div></div>`).join(""):`<div class="notice">אין עדיין תורים בחשבון הזה.</div>`;
-      document.querySelectorAll("[data-cancel-portal]").forEach(btn=>btn.onclick=()=>{ updateBusiness(b.id,x=>{ x.appointments=x.appointments.map(a=>a.id===btn.dataset.cancelPortal?{...a,status:"בוטל"}:a); }); renderPortal(); if(state.ownerSession&&state.ownerSession.businessId===b.id) renderBusinessDashboard(); });
-    }
+<button onclick="addService()">הוסף שירות</button>
 
-    function renderPortalBookingArea(b){
-      const booking=state.portalBooking;
-      $("portalServices").innerHTML=b.services.length?b.services.map(s=>`<div class="serviceCard ${booking.serviceId===s.id?"selected":""}" data-pservice="${s.id}"><div class="between"><h4 class="title">${s.name}</h4><span class="tag">${money(b.currency,s.price)}</span></div><p class="sub">${s.duration} דק׳ · ${s.category}</p><p class="sub">${s.description||""}</p></div>`).join(""):`<div class="notice">אין שירותים זמינים לעסק הזה.</div>`;
-      $("portalEmployees").innerHTML=b.employees.length?b.employees.map(e=>`<div class="employeeCard ${booking.employeeId===e.id?"selected":""}" data-pemployee="${e.id}"><div class="between"><h4 class="title">${e.name}</h4><span class="tag">${e.role}</span></div><p class="sub">זמין להזמנות</p></div>`).join(""):`<div class="notice">אין עובדים זמינים לעסק הזה.</div>`;
-      $("portalDays").innerHTML=DEFAULT_DAYS.map(d=>`<div class="day ${booking.day?.id===d.id?"selected":""}" data-pday="${d.id}"><small>${d.label}</small><strong>${d.date}</strong></div>`).join("");
-      $("portalSlots").innerHTML=DEFAULT_SLOTS.map(slot=>`<div class="slot ${booking.slot===slot?"selected":""}" data-pslot="${slot}">${slot}</div>`).join("");
-      document.querySelectorAll("[data-pservice]").forEach(btn=>btn.onclick=()=>{ booking.serviceId=btn.dataset.pservice; renderPortalBookingArea(b); });
-      document.querySelectorAll("[data-pemployee]").forEach(btn=>btn.onclick=()=>{ booking.employeeId=btn.dataset.pemployee; renderPortalBookingArea(b); });
-      document.querySelectorAll("[data-pday]").forEach(btn=>btn.onclick=()=>{ booking.day=DEFAULT_DAYS.find(d=>String(d.id)===btn.dataset.pday); renderPortalBookingArea(b); });
-      document.querySelectorAll("[data-pslot]").forEach(btn=>btn.onclick=()=>{ booking.slot=btn.dataset.pslot; renderPortalBookingArea(b); });
-      const srv=b.services.find(s=>s.id===booking.serviceId), emp=b.employees.find(e=>e.id===booking.employeeId); const parts=[]; if(srv) parts.push(srv.name); if(emp) parts.push(emp.name); if(booking.day&&booking.slot) parts.push(`${booking.day.date} · ${booking.slot}`); $("portalSummaryText").textContent=parts.length?parts.join(" | "):"יש לבחור שירות, איש צוות, יום ושעה."; $("portalSummaryPrice").textContent=srv?money(b.currency,srv.price):money(b.currency,0);
-    }
+<div id="servicesList"></div>
 
-    function updateBusiness(id,updater){ const businesses=getBusinesses(), i=businesses.findIndex(b=>b.id===id); if(i===-1) return; updater(businesses[i]); setBusinesses(businesses); }
-    function setOwnerMessage(text,ok=false){ const el=$("ownerAuthMessage"); if(!text){ el.className="notice hidden"; el.textContent=""; return; } el.className=ok?"notice ok":"notice"; el.textContent=text; }
-    function setPortalAuthMessage(text,ok=false){ const el=$("portalAuthMessage"); if(!text){ el.className="notice hidden"; el.textContent=""; return; } el.className=ok?"notice ok":"notice"; el.textContent=text; }
-    function openAuthModal(tab="login"){ $("authOverlay").classList.add("open"); switchOwnerTab(tab); setOwnerMessage(""); }
-    function closeAuthModal(){ $("authOverlay").classList.remove("open"); }
-    function openQuickModal(title,html){ $("quickModalTitle").textContent=title; $("quickModalBody").innerHTML=html; $("quickModal").classList.add("open"); }
-    function closeQuickModal(){ $("quickModal").classList.remove("open"); }
-    function switchOwnerTab(tab){ document.querySelectorAll("[data-owner-tab]").forEach(btn=>btn.classList.toggle("active",btn.dataset.ownerTab===tab)); $("ownerLoginTab").classList.toggle("hidden",tab!=="login"); $("ownerRegisterTab").classList.toggle("hidden",tab!=="register"); }
-    function switchCustomerTab(tab){ document.querySelectorAll("[data-customer-tab]").forEach(btn=>btn.classList.toggle("active",btn.dataset.customerTab===tab)); $("customerLoginTab").classList.toggle("hidden",tab!=="login"); $("customerRegisterTab").classList.toggle("hidden",tab!=="register"); }
+<button onclick="backHome()">חזור לפלטפורמה</button>
 
-    function registerBusiness(){
-      const ownerName=$("ownerName").value.trim(), ownerEmail=normalize($("ownerEmail").value), ownerPassword=$("ownerPassword").value.trim(), businessName=$("businessName").value.trim(), businessSlug=normalize($("businessSlug").value), category=$("businessCategory").value, country=$("businessCountry").value, language=$("businessLanguage").value, currency=$("businessCurrency").value, timezone=$("businessTimezone").value, plan=document.querySelector("#planSeg .active")?.dataset.plan||"Starter";
-      if(!ownerName||!ownerEmail||!ownerPassword||!businessName||!businessSlug) return setOwnerMessage("יש למלא את כל שדות החובה.");
-      const businesses=getBusinesses(); if(businesses.some(b=>normalize(b.owner.email)===ownerEmail)) return setOwnerMessage("כבר קיים עסק עם אימייל בעלים זהה."); if(businesses.some(b=>normalize(b.slug)===businessSlug)) return setOwnerMessage("ה-slug כבר תפוס.");
-      const business={id:uid("biz"),name:businessName,slug:businessSlug,category,country,language,currency,timezone,plan,owner:{id:uid("owner"),name:ownerName,email:ownerEmail,password:ownerPassword},members:[{id:uid("member"),name:ownerName,email:ownerEmail,role:"owner"}],employees:[],services:[],customers:[],appointments:[]};
-      setBusinesses([...businesses,business]); state.ownerSession={businessId:business.id,ownerEmail}; setOwnerSession(state.ownerSession); closeAuthModal(); renderHome(); showView("business");
-    }
-    function loginBusiness(){ const email=normalize($("ownerLoginEmail").value), password=$("ownerLoginPassword").value.trim(); const business=getBusinesses().find(b=>normalize(b.owner.email)===email&&b.owner.password===password); if(!business) return setOwnerMessage("פרטי הכניסה של העסק אינם נכונים."); state.ownerSession={businessId:business.id,ownerEmail:email}; setOwnerSession(state.ownerSession); closeAuthModal(); showView("business"); }
-    function customerRegister(){ const b=findBusinessById(state.selectedPortalBusinessId); if(!b) return setPortalAuthMessage("יש לבחור עסק."); const name=$("customerRegisterName").value.trim(), phone=$("customerRegisterPhone").value.trim(), email=$("customerRegisterEmail").value.trim(), password=$("customerRegisterPassword").value.trim(); if(!name||!phone||!password) return setPortalAuthMessage("יש למלא שם, טלפון וסיסמה."); if(b.customers.some(c=>phoneNorm(c.phone)===phoneNorm(phone))) return setPortalAuthMessage("לקוח עם הטלפון הזה כבר קיים בעסק."); const customer={id:uid("cus"),name,phone,email,password}; updateBusiness(b.id,x=>x.customers.push(customer)); state.customerSession={businessId:b.id,customerId:customer.id,name:customer.name}; setCustomerSession(state.customerSession); setPortalAuthMessage("חשבון הלקוח נוצר בהצלחה.",true); renderPortal(); if(state.ownerSession&&state.ownerSession.businessId===b.id) renderBusinessDashboard(); }
-    function customerLogin(){ const b=findBusinessById(state.selectedPortalBusinessId); if(!b) return setPortalAuthMessage("יש לבחור עסק."); const phone=phoneNorm($("customerLoginPhone").value), password=$("customerLoginPassword").value.trim(); const customer=b.customers.find(c=>phoneNorm(c.phone)===phone&&c.password===password); if(!customer) return setPortalAuthMessage("פרטי הכניסה של הלקוח אינם נכונים."); state.customerSession={businessId:b.id,customerId:customer.id,name:customer.name}; setCustomerSession(state.customerSession); setPortalAuthMessage("התחברת בהצלחה.",true); renderPortal(); }
-    function confirmPortalBooking(){ const b=findBusinessById(state.selectedPortalBusinessId); if(!b) return; const cs=state.customerSession; if(!cs||cs.businessId!==b.id) return setPortalAuthMessage("יש להתחבר כלקוח של העסק כדי לקבוע תור."); const booking=state.portalBooking; const customer=b.customers.find(c=>c.id===cs.customerId), service=b.services.find(s=>s.id===booking.serviceId), employee=b.employees.find(e=>e.id===booking.employeeId); if(!service||!employee||!booking.day||!booking.slot) return alert("יש להשלים שירות, איש צוות, יום ושעה."); updateBusiness(b.id,x=>x.appointments.push({id:uid("appt"),customerId:customer.id,customerName:customer.name,serviceId:service.id,serviceName:service.name,employeeId:employee.id,employeeName:employee.name,dateLabel:booking.day.date,slot:booking.slot,notes:$("portalBookingNotes").value.trim(),status:"נקבע",createdAt:Date.now()})); state.portalBooking={serviceId:null,employeeId:null,day:null,slot:null}; $("portalBookingNotes").value=""; renderPortal(); if(state.ownerSession&&state.ownerSession.businessId===b.id) renderBusinessDashboard(); alert(`התור נשמר בהצלחה עבור ${customer.name}`); }
-    function openAddServiceModal(){ openQuickModal("הוספת שירות",`<div class="formGrid"><div class="field"><label>שם שירות</label><input id="qmServiceName" placeholder="תספורת גבר" /></div><div class="field"><label>קטגוריה</label><input id="qmServiceCategory" placeholder="Hair" /></div><div class="field"><label>משך בדקות</label><input id="qmServiceDuration" type="number" placeholder="30" /></div><div class="field"><label>מחיר</label><input id="qmServicePrice" type="number" placeholder="70" /></div><div class="field span2"><label>תיאור</label><textarea id="qmServiceDesc" placeholder="תיאור השירות"></textarea></div></div><div class="row mt14"><button class="btnPrimary" id="saveServiceBtn">שמור שירות</button></div>`); $("saveServiceBtn").onclick=()=>{ const b=findBusinessById(state.ownerSession.businessId), name=$("qmServiceName").value.trim(), category=$("qmServiceCategory").value.trim(), duration=Number($("qmServiceDuration").value), price=Number($("qmServicePrice").value), description=$("qmServiceDesc").value.trim(); if(!name||!duration||!price) return; updateBusiness(b.id,x=>x.services.push({id:uid("srv"),name,category,duration,price,description})); closeQuickModal(); renderBusinessDashboard(); if(state.selectedPortalBusinessId===b.id) renderPortal(); }; }
-    function openAddEmployeeModal(){ openQuickModal("הוספת עובד",`<div class="formGrid"><div class="field"><label>שם עובד</label><input id="qmEmpName" placeholder="נועם" /></div><div class="field"><label>תפקיד</label><input id="qmEmpRole" placeholder="ברבר" /></div></div><div class="row mt14"><button class="btnPrimary" id="saveEmployeeBtn">שמור עובד</button></div>`); $("saveEmployeeBtn").onclick=()=>{ const b=findBusinessById(state.ownerSession.businessId), name=$("qmEmpName").value.trim(), role=$("qmEmpRole").value.trim(); if(!name||!role) return; updateBusiness(b.id,x=>x.employees.push({id:uid("emp"),name,role})); closeQuickModal(); renderBusinessDashboard(); if(state.selectedPortalBusinessId===b.id) renderPortal(); }; }
-    function seedDemoForCurrentBusiness(){ const b=findBusinessById(state.ownerSession.businessId); updateBusiness(b.id,x=>{ if(!x.employees.length){ x.employees.push({id:uid("emp"),name:"ספר א",role:"Main Stylist"},{id:uid("emp"),name:"ספר ב",role:"Assistant"}); } if(!x.services.length){ x.services.push({id:uid("srv"),name:"תספורת",duration:30,price:80,description:"שירות בסיסי",category:"Hair"},{id:uid("srv"),name:"תספורת + זקן",duration:50,price:130,description:"שירות משולב",category:"Hair"}); } if(!x.customers.length){ x.customers.push({id:uid("cus"),name:"לקוח דמו",phone:"0502222222",email:"demo@demo.com",password:"123456"}); } if(!x.appointments.length){ x.appointments.push({id:uid("appt"),customerId:x.customers[0].id,customerName:x.customers[0].name,serviceId:x.services[0].id,serviceName:x.services[0].name,employeeId:x.employees[0].id,employeeName:x.employees[0].name,dateLabel:"12 מרץ",slot:"11:30",notes:"",status:"נקבע",createdAt:Date.now()}); } }); renderBusinessDashboard(); if(state.selectedPortalBusinessId===b.id) renderPortal(); }
-    function copyPortalSlug(){ const b=findBusinessById(state.ownerSession.businessId); navigator.clipboard?.writeText(`globalbook.app/b/${b.slug}`); alert("הקישור הועתק"); }
-    function logoutAll(){ state.ownerSession=null; state.customerSession=null; clearOwnerSession(); clearCustomerSession(); refreshTopbar(); showView("home"); }
+</div>
+</div>
 
-    function bindEvents(){
-      $("goHomeBtn").onclick=()=>showView("home"); $("openPortalBtn").onclick=()=>showView("portal"); $("openBusinessBtn").onclick=()=>showView("business"); $("openAuthBtn").onclick=()=>openAuthModal("login"); $("logoutBtn").onclick=logoutAll; $("heroStartBusinessBtn").onclick=()=>openAuthModal("register"); $("heroOpenPortalBtn").onclick=()=>showView("portal"); $("closeAuthModalBtn").onclick=closeAuthModal; $("closeQuickModalBtn").onclick=closeQuickModal; $("ownerLoginBtn").onclick=loginBusiness; $("ownerRegisterBtn").onclick=registerBusiness; $("customerLoginBtn").onclick=customerLogin; $("customerRegisterBtn").onclick=customerRegister; $("portalConfirmBtn").onclick=confirmPortalBooking; $("portalWaitlistBtn").onclick=()=>alert("רשימת המתנה תתווסף בשלב הבא."); $("portalBusinessSelect").onchange=e=>{ state.selectedPortalBusinessId=e.target.value; state.portalBooking={serviceId:null,employeeId:null,day:null,slot:null}; renderPortal(); }; document.querySelectorAll("[data-owner-tab]").forEach(btn=>btn.onclick=()=>switchOwnerTab(btn.dataset.ownerTab)); document.querySelectorAll("[data-customer-tab]").forEach(btn=>btn.onclick=()=>switchCustomerTab(btn.dataset.customerTab)); document.querySelectorAll("#planSeg .segBtn").forEach(btn=>btn.onclick=()=>{ document.querySelectorAll("#planSeg .segBtn").forEach(x=>x.classList.remove("active")); btn.classList.add("active"); }); $("copyPortalSlugBtn").onclick=copyPortalSlug; $("openBusinessPortalBtn").onclick=()=>{ state.selectedPortalBusinessId=state.ownerSession.businessId; showView("portal"); }; $("openAddEmployeeBtn").onclick=openAddEmployeeModal; $("openAddServiceBtn").onclick=openAddServiceModal; $("seedDemoDataBtn").onclick=seedDemoForCurrentBusiness; $("authOverlay").addEventListener("click",e=>{ if(e.target===$("authOverlay")) closeAuthModal(); }); $("quickModal").addEventListener("click",e=>{ if(e.target===$("quickModal")) closeQuickModal(); });
-    }
+<div id="publicPageView" class="hidden">
 
-    function init(){ seedInitial(); state.ownerSession=getOwnerSession(); state.customerSession=getCustomerSession(); bindEvents(); refreshTopbar(); renderHome(); }
-    init();
-  </script>
+<div class="card">
+<h2 id="publicTitle"></h2>
+
+<h3>בחר שירות</h3>
+
+<div id="publicServices"></div>
+
+<h3>שם לקוח</h3>
+<input id="customerName">
+
+<h3>שעה</h3>
+<select id="slot">
+<option>09:00</option>
+<option>10:00</option>
+<option>11:00</option>
+<option>12:00</option>
+<option>13:00</option>
+<option>14:00</option>
+</select>
+
+<button onclick="book()">קבע תור</button>
+
+</div>
+
+<div class="card">
+<h3>תורים שנקבעו</h3>
+<div id="appointments"></div>
+</div>
+
+<button onclick="backHome()">חזור</button>
+
+</div>
+
+</div>
+
+<script>
+
+let businesses = JSON.parse(localStorage.getItem("biz")||"[]")
+let currentBusiness=null
+let selectedService=null
+
+function save(){
+localStorage.setItem("biz",JSON.stringify(businesses))
+}
+
+function renderBusinesses(){
+
+let el=document.getElementById("businessList")
+el.innerHTML=""
+
+businesses.forEach(b=>{
+
+let div=document.createElement("div")
+div.className="card"
+
+div.innerHTML=`
+<h3>${b.name}</h3>
+slug: ${b.slug}<br><br>
+
+<button onclick="openAdmin('${b.slug}')">דשבורד עסק</button>
+<button onclick="openPublic('${b.slug}')">עמוד לקוחות</button>
+`
+
+el.appendChild(div)
+
+})
+
+}
+
+function showCreateBusiness(){
+
+document.getElementById("platformView").classList.add("hidden")
+document.getElementById("createBusinessView").classList.remove("hidden")
+
+}
+
+function createBusiness(){
+
+let name=document.getElementById("bizName").value
+let slug=document.getElementById("bizSlug").value
+
+if(!name||!slug)return
+
+businesses.push({
+name,
+slug,
+services:[],
+appointments:[]
+})
+
+save()
+
+backHome()
+
+}
+
+function backHome(){
+
+document.getElementById("platformView").classList.remove("hidden")
+document.getElementById("createBusinessView").classList.add("hidden")
+document.getElementById("businessAdminView").classList.add("hidden")
+document.getElementById("publicPageView").classList.add("hidden")
+
+renderBusinesses()
+
+}
+
+function openAdmin(slug){
+
+currentBusiness=businesses.find(b=>b.slug==slug)
+
+document.getElementById("platformView").classList.add("hidden")
+document.getElementById("businessAdminView").classList.remove("hidden")
+
+document.getElementById("adminTitle").innerText=currentBusiness.name
+
+renderServices()
+
+}
+
+function addService(){
+
+let name=document.getElementById("serviceName").value
+let price=document.getElementById("servicePrice").value
+
+currentBusiness.services.push({name,price})
+
+save()
+
+renderServices()
+
+}
+
+function renderServices(){
+
+let el=document.getElementById("servicesList")
+el.innerHTML=""
+
+currentBusiness.services.forEach(s=>{
+
+let div=document.createElement("div")
+div.className="service"
+
+div.innerHTML=`${s.name} - ₪${s.price}`
+
+el.appendChild(div)
+
+})
+
+}
+
+function openPublicPage(){
+
+openPublic(currentBusiness.slug)
+
+}
+
+function openPublic(slug){
+
+currentBusiness=businesses.find(b=>b.slug==slug)
+
+document.getElementById("platformView").classList.add("hidden")
+document.getElementById("publicPageView").classList.remove("hidden")
+
+document.getElementById("publicTitle").innerText=currentBusiness.name
+
+renderPublicServices()
+
+renderAppointments()
+
+}
+
+function renderPublicServices(){
+
+let el=document.getElementById("publicServices")
+el.innerHTML=""
+
+currentBusiness.services.forEach((s,i)=>{
+
+let div=document.createElement("div")
+div.className="service"
+
+div.onclick=()=>{
+
+selectedService=i
+
+renderPublicServices()
+
+}
+
+if(selectedService==i)div.classList.add("selected")
+
+div.innerHTML=`${s.name} - ₪${s.price}`
+
+el.appendChild(div)
+
+})
+
+}
+
+function book(){
+
+let name=document.getElementById("customerName").value
+let slot=document.getElementById("slot").value
+
+if(!name||selectedService==null)return
+
+let service=currentBusiness.services[selectedService]
+
+currentBusiness.appointments.push({
+
+name,
+slot,
+service:service.name
+
+})
+
+save()
+
+renderAppointments()
+
+}
+
+function renderAppointments(){
+
+let el=document.getElementById("appointments")
+el.innerHTML=""
+
+currentBusiness.appointments.forEach(a=>{
+
+let div=document.createElement("div")
+div.className="service"
+
+div.innerHTML=`
+
+${a.name}<br>
+${a.service}<br>
+${a.slot}
+
+`
+
+el.appendChild(div)
+
+})
+
+}
+
+renderBusinesses()
+
+</script>
+
 </body>
 </html>
