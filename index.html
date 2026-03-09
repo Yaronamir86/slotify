@@ -3,185 +3,72 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>MiniSlotify SaaS Platform</title>
+  <title>MiniSlotify Platform v3</title>
   <meta name="theme-color" content="#1f2937" />
   <style>
     :root{
-      --bg:#f6f4ef;
-      --panel:rgba(255,255,255,.88);
-      --panel-strong:#fff;
-      --text:#171717;
-      --muted:#6b7280;
-      --line:#e5e7eb;
-      --accent:#111827;
-      --accent-2:#374151;
-      --ok:#166534;
-      --danger:#b91c1c;
-      --warn:#a16207;
-      --shadow:0 18px 48px rgba(17,24,39,.08);
-      --radius:22px;
-      --radius-sm:16px;
-      --max:1300px;
+      --bg:#f6f4ef;--panel:rgba(255,255,255,.9);--panel2:#fff;--text:#171717;--muted:#6b7280;
+      --line:#e5e7eb;--accent:#111827;--accent2:#374151;--ok:#166534;--danger:#b91c1c;--warn:#a16207;
+      --shadow:0 18px 48px rgba(17,24,39,.08);--radius:22px;--max:1360px
     }
-    *{box-sizing:border-box}
-    html,body{margin:0;padding:0}
-    body{
-      font-family:Inter,Arial,sans-serif;
-      background:
-        radial-gradient(circle at top right, #fff 0%, rgba(255,255,255,.55) 18%, transparent 40%),
-        linear-gradient(180deg,#f8f6f1 0%,#f1ede5 100%);
-      color:var(--text);
-      min-height:100vh;
-    }
-    button,input,select,textarea{font:inherit}
-    button{cursor:pointer}
-    .hidden{display:none!important}
+    *{box-sizing:border-box}html,body{margin:0;padding:0}
+    body{font-family:Inter,Arial,sans-serif;color:var(--text);min-height:100vh;background:
+      radial-gradient(circle at top right,#fff 0%,rgba(255,255,255,.55) 18%,transparent 40%),
+      linear-gradient(180deg,#f8f6f1 0%,#f1ede5 100%)}
+    button,input,select,textarea{font:inherit}button{cursor:pointer}.hidden{display:none!important}
     .shell{width:min(var(--max),100%);margin:0 auto;padding:14px}
-    .topbar{
-      position:sticky;top:0;z-index:30;
-      display:flex;align-items:center;justify-content:space-between;gap:12px;
-      padding:12px;
-      margin-bottom:14px;
-      background:rgba(255,255,255,.78);
-      border:1px solid var(--line);
-      border-radius:20px;
-      box-shadow:var(--shadow);
-      backdrop-filter:blur(14px);
-    }
-    .brand{display:flex;align-items:center;gap:12px;min-width:0}
-    .mark{
-      width:44px;height:44px;border-radius:14px;
-      display:grid;place-items:center;
-      background:linear-gradient(135deg,#111827,#4b5563);
-      color:#fff;font-weight:800;flex:0 0 auto
-    }
-    .brand h1{margin:0;font-size:1rem;line-height:1.1}
-    .brand p{margin:4px 0 0;color:var(--muted);font-size:.85rem}
+    .topbar{position:sticky;top:0;z-index:30;display:flex;align-items:center;justify-content:space-between;gap:12px;
+      background:rgba(255,255,255,.82);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);
+      backdrop-filter:blur(14px);padding:12px;margin-bottom:14px}
+    .brand{display:flex;align-items:center;gap:12px;min-width:0}.mark{width:44px;height:44px;border-radius:14px;
+      display:grid;place-items:center;background:linear-gradient(135deg,#111827,#4b5563);color:#fff;font-weight:800}
+    .brand h1{margin:0;font-size:1rem}.brand p{margin:4px 0 0;color:var(--muted);font-size:.85rem}
     .actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-    .btn,.btnGhost,.btnDanger,.pill{
-      border:none;border-radius:14px;padding:11px 14px;transition:.18s ease
-    }
-    .btn{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff}
-    .btnGhost{background:#fff;border:1px solid var(--line);color:var(--text)}
+    .btn,.btnGhost,.btnDanger,.pill,.tab{border:none;border-radius:14px;padding:11px 14px;transition:.18s ease}
+    .btn{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff}
+    .btnGhost,.pill,.tab{background:#fff;border:1px solid var(--line);color:var(--text)}
     .btnDanger{background:#fff3f3;border:1px solid #fecaca;color:var(--danger)}
-    .pill{background:#fff;border:1px solid var(--line);color:var(--muted);padding:9px 11px}
-    .btn:hover,.btnGhost:hover,.btnDanger:hover,.pill:hover{transform:translateY(-1px)}
-    .view{display:none}
-    .view.active{display:block}
-    .hero,.grid2,.grid3,.grid4,.cards,.statsGrid,.formGrid,.slots,.days{display:grid;gap:12px}
+    .pill{padding:9px 11px;color:var(--muted)} .btn:hover,.btnGhost:hover,.btnDanger:hover,.pill:hover,.tab:hover{transform:translateY(-1px)}
+    .view{display:none}.view.active{display:block}
+    .hero,.grid2,.grid3,.grid4,.cards,.statsGrid,.formGrid,.days,.slots,.calendarGrid{display:grid;gap:12px}
     .hero,.grid2,.grid3,.grid4,.cards,.statsGrid,.formGrid{grid-template-columns:1fr}
-    .panel,.heroCard,.card,.item,.slot,.day{
-      background:var(--panel);
-      border:1px solid var(--line);
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
-      backdrop-filter:blur(12px);
-    }
-    .panel,.heroCard,.card,.item{padding:16px}
-    .hero{margin-bottom:14px}
+    .panel,.heroCard,.card,.item,.slot,.day,.calCell{background:var(--panel);border:1px solid var(--line);border-radius:22px;box-shadow:var(--shadow)}
+    .panel,.heroCard,.card,.item{padding:16px}.hero{margin-bottom:14px}
     .heroCard h2{margin:0 0 10px;font-size:clamp(1.8rem,5vw,3rem);line-height:1.04;letter-spacing:-.04em}
-    .heroCard p{margin:0;color:var(--muted);line-height:1.7}
-    .eyebrow{
-      display:inline-flex;align-items:center;gap:8px;
-      background:#fff;border:1px solid var(--line);
-      color:var(--muted);padding:8px 12px;border-radius:999px;
-      font-size:.88rem;margin-bottom:14px
-    }
-    .head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
-    .head h3{margin:0;font-size:1.05rem}
-    .muted{color:var(--muted)}
-    .stat{
-      background:#fff;border:1px solid var(--line);
-      border-radius:18px;padding:14px
-    }
+    .heroCard p{margin:0;color:var(--muted);line-height:1.7}.eyebrow{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);
+      color:var(--muted);padding:8px 12px;border-radius:999px;font-size:.88rem;margin-bottom:14px}
+    .head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}.head h3{margin:0;font-size:1.05rem}
+    .muted{color:var(--muted)} .stat{background:#fff;border:1px solid var(--line);border-radius:18px;padding:14px}
     .stat strong{display:block;font-size:1.45rem;letter-spacing:-.04em;margin-bottom:4px}
-    .title{margin:0 0 8px;font-size:1rem}
-    .sub{margin:0;color:var(--muted);line-height:1.6;font-size:.94rem}
-    .tag{
-      display:inline-flex;align-items:center;gap:6px;
-      border-radius:999px;padding:7px 10px;font-size:.82rem;
-      background:#f3f4f6;color:#374151
-    }
-    .tag.ok{background:#ecfdf5;color:var(--ok)}
-    .tag.danger{background:#fef2f2;color:var(--danger)}
-    .tag.warn{background:#fffbeb;color:var(--warn)}
-    .item.selectable,.slot,.day{cursor:pointer;transition:.18s ease}
-    .item.selectable:hover,.slot:hover,.day:hover{transform:translateY(-1px);background:#fff}
+    .title{margin:0 0 8px;font-size:1rem}.sub{margin:0;color:var(--muted);line-height:1.6;font-size:.94rem}
+    .tag{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:7px 10px;font-size:.82rem;background:#f3f4f6;color:#374151}
+    .tag.ok{background:#ecfdf5;color:var(--ok)}.tag.danger{background:#fef2f2;color:var(--danger)}.tag.warn{background:#fffbeb;color:var(--warn)}
+    .item.selectable,.slot,.day,.calCell{cursor:pointer;transition:.18s ease}.item.selectable:hover,.slot:hover,.day:hover,.calCell:hover{transform:translateY(-1px);background:#fff}
     .selected{outline:2px solid #111827;background:#fff}
-    .field{display:flex;flex-direction:column;gap:7px}
-    .field label{font-size:.9rem;color:var(--muted)}
-    .field input,.field select,.field textarea{
-      width:100%;border:1px solid var(--line);background:#fff;
-      border-radius:14px;padding:12px 13px;color:var(--text);outline:none
-    }
-    .field textarea{min-height:96px;resize:vertical}
-    .span2{grid-column:span 1}
-    .row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-    .between{display:flex;align-items:center;justify-content:space-between;gap:10px}
-    .tableWrap{overflow:auto}
-    table{width:100%;min-width:700px;border-collapse:collapse}
-    th,td{padding:12px 10px;border-bottom:1px solid var(--line);text-align:right;font-size:.93rem}
-    th{color:var(--muted);font-weight:600}
-    tr:last-child td{border-bottom:none}
-    .notice{
-      background:#fff;border:1px solid var(--line);color:var(--muted);
-      border-radius:16px;padding:12px 14px;line-height:1.6
-    }
-    .notice.ok{background:#f0fdf4;border-color:#bbf7d0;color:var(--ok)}
-    .notice.warn{background:#fffbeb;border-color:#fde68a;color:var(--warn)}
-    .portalHero{
-      border-radius:28px;padding:24px;color:#fff;overflow:hidden;position:relative
-    }
-    .portalHero:before{
-      content:"";position:absolute;inset:0;background:linear-gradient(135deg,var(--portal1,#111827),var(--portal2,#374151));
-      z-index:0
-    }
-    .portalHero > *{position:relative;z-index:1}
-    .portalHero h2{margin:0 0 8px;font-size:clamp(1.8rem,5vw,2.7rem)}
-    .portalHero p{margin:0;opacity:.9;line-height:1.7}
-    .logoCircle{
-      width:58px;height:58px;border-radius:18px;display:grid;place-items:center;
-      background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.18);font-weight:800
-    }
-    .days{grid-template-columns:repeat(4,1fr)}
-    .day{text-align:center;padding:12px 8px}
-    .day small{display:block;color:var(--muted);margin-bottom:6px}
-    .slots{grid-template-columns:repeat(2,1fr)}
-    .slot{text-align:center;padding:14px 10px;font-weight:700}
-    .stickyBox{
-      position:sticky;bottom:10px;z-index:20;
-      background:rgba(255,255,255,.9);
-      border:1px solid var(--line);border-radius:20px;
-      box-shadow:var(--shadow);padding:12px;margin-top:12px
-    }
-    .modalWrap{
-      position:fixed;inset:0;background:rgba(15,23,42,.45);backdrop-filter:blur(8px);
-      display:none;align-items:flex-end;justify-content:center;padding:12px;z-index:100
-    }
-    .modalWrap.open{display:flex}
-    .modal{
-      width:min(860px,100%);max-height:92vh;overflow:auto;
-      background:#fff;border:1px solid var(--line);border-radius:24px 24px 18px 18px;
-      box-shadow:var(--shadow);padding:18px
-    }
-    .tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
-    .tab{border:none;border-radius:14px;padding:12px;background:#fff;border:1px solid var(--line)}
-    .tab.active{outline:2px solid #111827;background:#f9fafb}
-    .divider{height:1px;background:var(--line);margin:14px 0}
+    .field{display:flex;flex-direction:column;gap:7px}.field label{font-size:.9rem;color:var(--muted)}
+    .field input,.field select,.field textarea{width:100%;border:1px solid var(--line);background:#fff;border-radius:14px;padding:12px 13px;color:var(--text);outline:none}
+    .field textarea{min-height:96px;resize:vertical}.span2{grid-column:span 1}
+    .row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.between{display:flex;align-items:center;justify-content:space-between;gap:10px}
+    .tableWrap{overflow:auto}table{width:100%;min-width:700px;border-collapse:collapse}th,td{padding:12px 10px;border-bottom:1px solid var(--line);text-align:right;font-size:.93rem}
+    th{color:var(--muted);font-weight:600}tr:last-child td{border-bottom:none}
+    .notice{background:#fff;border:1px solid var(--line);color:var(--muted);border-radius:16px;padding:12px 14px;line-height:1.6}
+    .notice.ok{background:#f0fdf4;border-color:#bbf7d0;color:var(--ok)}.notice.warn{background:#fffbeb;border-color:#fde68a;color:var(--warn)}
+    .portalHero{border-radius:28px;padding:24px;color:#fff;overflow:hidden;position:relative}.portalHero:before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,var(--portal1,#111827),var(--portal2,#374151));z-index:0}
+    .portalHero>*{position:relative;z-index:1}.portalHero h2{margin:0 0 8px;font-size:clamp(1.8rem,5vw,2.7rem)}.portalHero p{margin:0;opacity:.9;line-height:1.7}
+    .logoCircle{width:58px;height:58px;border-radius:18px;display:grid;place-items:center;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.18);font-weight:800}
+    .days{grid-template-columns:repeat(4,1fr)}.day{text-align:center;padding:12px 8px}.day small{display:block;color:var(--muted);margin-bottom:6px}
+    .slots{grid-template-columns:repeat(2,1fr)}.slot{text-align:center;padding:14px 10px;font-weight:700}
+    .stickyBox{position:sticky;bottom:10px;z-index:20;background:rgba(255,255,255,.9);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);padding:12px;margin-top:12px}
+    .modalWrap{position:fixed;inset:0;background:rgba(15,23,42,.45);backdrop-filter:blur(8px);display:none;align-items:flex-end;justify-content:center;padding:12px;z-index:100}
+    .modalWrap.open{display:flex}.modal{width:min(900px,100%);max-height:92vh;overflow:auto;background:#fff;border:1px solid var(--line);border-radius:24px 24px 18px 18px;box-shadow:var(--shadow);padding:18px}
+    .tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}.tab.active{outline:2px solid #111827;background:#f9fafb}.divider{height:1px;background:var(--line);margin:14px 0}
+    .calendarGrid{grid-template-columns:repeat(7,1fr)} .calHeader{font-size:.82rem;color:var(--muted);text-align:center;padding:6px}
+    .calCell{min-height:104px;padding:10px;background:#fff} .calCell strong{display:block;margin-bottom:6px}
+    .calMeta{font-size:.78rem;color:var(--muted);line-height:1.5}
     @media (min-width:760px){
-      .shell{padding:20px}
-      .hero{grid-template-columns:1.15fr .85fr}
-      .grid2{grid-template-columns:repeat(2,1fr)}
-      .grid3{grid-template-columns:repeat(3,1fr)}
-      .grid4{grid-template-columns:repeat(4,1fr)}
-      .cards{grid-template-columns:repeat(2,1fr)}
-      .statsGrid{grid-template-columns:repeat(4,1fr)}
-      .formGrid{grid-template-columns:repeat(2,1fr)}
-      .span2{grid-column:span 2}
-      .days{grid-template-columns:repeat(7,1fr)}
-      .slots{grid-template-columns:repeat(4,1fr)}
-      .modalWrap{align-items:center}
-      .modal{border-radius:24px;padding:20px}
+      .shell{padding:20px}.hero{grid-template-columns:1.15fr .85fr}.grid2{grid-template-columns:repeat(2,1fr)}.grid3{grid-template-columns:repeat(3,1fr)}.grid4{grid-template-columns:repeat(4,1fr)}
+      .cards{grid-template-columns:repeat(2,1fr)}.statsGrid{grid-template-columns:repeat(4,1fr)}.formGrid{grid-template-columns:repeat(2,1fr)}.span2{grid-column:span 2}
+      .days{grid-template-columns:repeat(7,1fr)}.slots{grid-template-columns:repeat(4,1fr)}.modalWrap{align-items:center}.modal{border-radius:24px;padding:20px}
     }
   </style>
 </head>
@@ -210,7 +97,7 @@
         <div class="heroCard">
           <div class="eyebrow">Super Admin • Businesses • Mini Booking Systems</div>
           <h2>מבט־על על כל העסקים, כשלכל אחד יש עמוד הזמנות עצמאי משלו.</h2>
-          <p>הלקוח לא בוחר עסק מתוך פורטל גלובלי. לכל עסק יש עמוד משלו, לקוחות משלו, שירותים משלו, תורים משלו ודשבורד משלו. אתה רואה הכול מלמעלה.</p>
+          <p>לכל עסק יש לקוחות נפרדים, שעות עבודה נפרדות, ימים חסומים, יומן חודשי ותורים משלו. אתה רואה את כולם מלמעלה.</p>
           <div class="row" style="margin-top:16px">
             <button class="btn" id="createBusinessBtn">צור עסק חדש</button>
           </div>
@@ -254,14 +141,69 @@
             <button class="btnGhost" id="addEmployeeBtn">הוסף עובד</button>
           </div>
           <div id="adminEmployees" class="cards"></div>
+
+          <div class="divider"></div>
+
+          <div class="head">
+            <h3>הגדרות זמינות</h3>
+          </div>
+          <div class="formGrid">
+            <div class="field">
+              <label>שעת התחלה</label>
+              <input id="workingStart" type="time" />
+            </div>
+            <div class="field">
+              <label>שעת סיום</label>
+              <input id="workingEnd" type="time" />
+            </div>
+            <div class="field">
+              <label>מרווח תורים בדקות</label>
+              <input id="slotInterval" type="number" min="15" step="15" />
+            </div>
+          </div>
+          <div class="row" style="margin-top:12px">
+            <button class="btn" id="saveAvailabilityBtn">שמור הגדרות שעות</button>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="head"><h3>חסימות מראש</h3></div>
+          <div class="formGrid">
+            <div class="field">
+              <label>חסום יום שלם</label>
+              <select id="blockDateSelect"></select>
+            </div>
+            <div class="field">
+              <label>חסום שעה ביום</label>
+              <select id="blockSlotDateSelect"></select>
+            </div>
+            <div class="field">
+              <label>שעה לחסימה</label>
+              <select id="blockSlotTime"></select>
+            </div>
+          </div>
+          <div class="row" style="margin-top:12px">
+            <button class="btnGhost" id="blockFullDayBtn">חסום יום מלא</button>
+            <button class="btnGhost" id="blockSpecificSlotBtn">חסום שעה</button>
+          </div>
+          <div id="adminBlocks" class="cards" style="margin-top:12px"></div>
         </div>
 
         <div class="panel">
           <div class="head">
-            <h3>ביצועי העסק</h3>
-            <span class="muted">דשבורד עצמאי לעסק</span>
+            <h3>יומן חודשי קדימה</h3>
+            <span class="muted">צפייה לחודש הקרוב</span>
           </div>
-          <div id="adminStats" class="statsGrid"></div>
+          <div class="calendarGrid" id="adminCalendarHeaders"></div>
+          <div class="calendarGrid" id="adminCalendarGrid"></div>
+
+          <div class="divider"></div>
+
+          <div class="head">
+            <h3>תורים ליום שנבחר</h3>
+            <span id="selectedDayLabel" class="muted">בחר יום מהיומן</span>
+          </div>
+          <div id="selectedDayAppointments" class="cards"></div>
 
           <div class="divider"></div>
 
@@ -280,34 +222,11 @@
 
           <div class="divider"></div>
 
-          <div class="head"><h3>תורים</h3></div>
+          <div class="head"><h3>לקוחות העסק</h3></div>
           <div class="tableWrap card">
             <table>
               <thead>
-                <tr>
-                  <th>לקוח</th>
-                  <th>שירות</th>
-                  <th>עובד</th>
-                  <th>מועד</th>
-                  <th>סטטוס</th>
-                </tr>
-              </thead>
-              <tbody id="adminAppointments"></tbody>
-            </table>
-          </div>
-
-          <div class="divider"></div>
-
-          <div class="head"><h3>לקוחות</h3></div>
-          <div class="tableWrap card">
-            <table>
-              <thead>
-                <tr>
-                  <th>שם</th>
-                  <th>טלפון</th>
-                  <th>אימייל</th>
-                  <th>כמות תורים</th>
-                </tr>
+                <tr><th>שם</th><th>טלפון</th><th>אימייל</th><th>כמות תורים</th></tr>
               </thead>
               <tbody id="adminCustomers"></tbody>
             </table>
@@ -452,75 +371,26 @@
 
       <div id="ownerLoginTab">
         <div class="formGrid">
-          <div class="field">
-            <label>אימייל</label>
-            <input id="ownerLoginEmail" placeholder="owner@business.com" />
-          </div>
-          <div class="field">
-            <label>סיסמה</label>
-            <input id="ownerLoginPassword" type="password" placeholder="******" />
-          </div>
+          <div class="field"><label>אימייל</label><input id="ownerLoginEmail" placeholder="owner@business.com" /></div>
+          <div class="field"><label>סיסמה</label><input id="ownerLoginPassword" type="password" placeholder="******" /></div>
         </div>
-        <div class="row" style="margin-top:12px">
-          <button class="btn" id="ownerLoginBtn">התחבר</button>
-        </div>
+        <div class="row" style="margin-top:12px"><button class="btn" id="ownerLoginBtn">התחבר</button></div>
       </div>
 
       <div id="ownerRegisterTab" class="hidden">
         <div class="formGrid">
-          <div class="field">
-            <label>שם בעל העסק</label>
-            <input id="ownerName" placeholder="מורן לוי" />
-          </div>
-          <div class="field">
-            <label>אימייל בעל העסק</label>
-            <input id="ownerEmail" placeholder="moran@business.com" />
-          </div>
-          <div class="field">
-            <label>סיסמה</label>
-            <input id="ownerPassword" type="password" placeholder="בחר סיסמה" />
-          </div>
-          <div class="field">
-            <label>שם העסק</label>
-            <input id="businessName" placeholder="Moran Nails" />
-          </div>
-          <div class="field">
-            <label>Slug</label>
-            <input id="businessSlug" placeholder="moran-nails" />
-          </div>
-          <div class="field">
-            <label>תחום</label>
-            <select id="businessCategory">
-              <option>Nails</option>
-              <option>Hair</option>
-              <option>Beauty</option>
-              <option>Clinic</option>
-            </select>
-          </div>
-          <div class="field">
-            <label>צבע ראשי</label>
-            <input id="businessColor1" type="color" value="#111827" />
-          </div>
-          <div class="field">
-            <label>צבע משני</label>
-            <input id="businessColor2" type="color" value="#374151" />
-          </div>
-          <div class="field span2">
-            <label>תיאור העסק</label>
-            <textarea id="businessDescription" placeholder="תיאור קצר שיופיע בעמוד הלקוחות של העסק"></textarea>
-          </div>
-          <div class="field">
-            <label>תוכנית</label>
-            <select id="businessPlan">
-              <option>Starter</option>
-              <option>Pro</option>
-              <option>Scale</option>
-            </select>
-          </div>
+          <div class="field"><label>שם בעל העסק</label><input id="ownerName" placeholder="מורן לוי" /></div>
+          <div class="field"><label>אימייל בעל העסק</label><input id="ownerEmail" placeholder="moran@business.com" /></div>
+          <div class="field"><label>סיסמה</label><input id="ownerPassword" type="password" placeholder="בחר סיסמה" /></div>
+          <div class="field"><label>שם העסק</label><input id="businessName" placeholder="Moran Nails" /></div>
+          <div class="field"><label>Slug</label><input id="businessSlug" placeholder="moran-nails" /></div>
+          <div class="field"><label>תחום</label><select id="businessCategory"><option>Nails</option><option>Hair</option><option>Beauty</option><option>Clinic</option></select></div>
+          <div class="field"><label>צבע ראשי</label><input id="businessColor1" type="color" value="#111827" /></div>
+          <div class="field"><label>צבע משני</label><input id="businessColor2" type="color" value="#374151" /></div>
+          <div class="field span2"><label>תיאור העסק</label><textarea id="businessDescription" placeholder="תיאור קצר שיופיע בעמוד הלקוחות של העסק"></textarea></div>
+          <div class="field"><label>תוכנית</label><select id="businessPlan"><option>Starter</option><option>Pro</option><option>Scale</option></select></div>
         </div>
-        <div class="row" style="margin-top:12px">
-          <button class="btn" id="ownerRegisterBtn">צור עסק</button>
-        </div>
+        <div class="row" style="margin-top:12px"><button class="btn" id="ownerRegisterBtn">צור עסק</button></div>
       </div>
     </div>
   </div>
@@ -537,30 +407,21 @@
 
   <script>
     const STORAGE_KEYS = {
-      businesses: "minislotify_businesses_v2",
-      ownerSession: "minislotify_owner_session_v2",
-      customerSession: "minislotify_customer_session_v2"
+      businesses: "minislotify_businesses_v3",
+      ownerSession: "minislotify_owner_session_v3",
+      customerSession: "minislotify_customer_session_v3"
     };
-
-    const DEFAULT_DAYS = [
-      { id: 1, label: "א׳", date: "10 מרץ" },
-      { id: 2, label: "ב׳", date: "11 מרץ" },
-      { id: 3, label: "ג׳", date: "12 מרץ" },
-      { id: 4, label: "ד׳", date: "13 מרץ" },
-      { id: 5, label: "ה׳", date: "14 מרץ" },
-      { id: 6, label: "ו׳", date: "15 מרץ" },
-      { id: 7, label: "ש׳", date: "16 מרץ" }
-    ];
-
-    const DEFAULT_SLOTS = ["09:00","09:30","10:00","10:30","11:30","12:00","13:30","15:00"];
 
     const state = {
       currentView: "platform",
       ownerSession: null,
       customerSession: null,
       activeBusinessId: null,
-      booking: { serviceId:null, employeeId:null, day:null, slot:null }
+      booking: { serviceId:null, employeeId:null, day:null, slot:null },
+      selectedAdminDateKey: null
     };
+
+    const DEFAULT_DAYS = buildNextDays(30);
 
     const $ = (id) => document.getElementById(id);
     const uid = (prefix="id") => `${prefix}_${Date.now()}_${Math.random().toString(36).slice(2,8)}`;
@@ -576,6 +437,49 @@
     function getCustomerSession(){ return JSON.parse(localStorage.getItem(STORAGE_KEYS.customerSession) || "null"); }
     function setCustomerSession(data){ localStorage.setItem(STORAGE_KEYS.customerSession, JSON.stringify(data)); }
     function clearCustomerSession(){ localStorage.removeItem(STORAGE_KEYS.customerSession); }
+
+    function buildNextDays(count){
+      const weekdays = ["א׳","ב׳","ג׳","ד׳","ה׳","ו׳","ש׳"];
+      const months = ["ינו׳","פבר׳","מרץ","אפר׳","מאי","יוני","יולי","אוג׳","ספט׳","אוק׳","נוב׳","דצמ׳"];
+      const arr = [];
+      const now = new Date();
+      for(let i=0;i<count;i++){
+        const d = new Date(now);
+        d.setDate(now.getDate()+i);
+        arr.push({
+          id:i+1,
+          dateKey:d.toISOString().slice(0,10),
+          dayNumber:d.getDate(),
+          label:weekdays[d.getDay()],
+          date:`${d.getDate()} ${months[d.getMonth()]}`,
+          month:d.getMonth(),
+          year:d.getFullYear()
+        });
+      }
+      return arr;
+    }
+
+    function buildSlots(start,end,interval){
+      if(!start || !end || !interval) return [];
+      const out = [];
+      const [sh,sm] = start.split(":").map(Number);
+      const [eh,em] = end.split(":").map(Number);
+      let current = sh*60+sm;
+      const max = eh*60+em;
+      while(current < max){
+        const h = String(Math.floor(current/60)).padStart(2,"0");
+        const m = String(current%60).padStart(2,"0");
+        out.push(`${h}:${m}`);
+        current += Number(interval);
+      }
+      return out;
+    }
+
+    function compareTime(a,b){ return a.localeCompare(b); }
+
+    function getDefaultAvailability(){
+      return { start:"09:00", end:"17:00", interval:30 };
+    }
 
     function findBusiness(id){ return getBusinesses().find(b => b.id === id); }
 
@@ -603,34 +507,21 @@
         color2: "#ec4899",
         description: "סטודיו נעים ומדויק לטיפולי ציפורניים, לק ג׳ל ובנייה.",
         plan: "Pro",
+        availability: { start:"09:00", end:"17:00", interval:30 },
+        blockedDates: [],
+        blockedSlots: [],
         owner: { name: "מורן", email: "moran@business.com", password: "123456" },
-        employees: [
-          { id: employeeId, name: "מורן", role: "Nail Artist" }
-        ],
+        employees: [{ id: employeeId, name: "מורן", role: "Nail Artist" }],
         services: [
-          { id: serviceId, name: "לק ג׳ל", duration: 60, price: 140, description: "כולל ניקוי, עיצוב ומריחה" },
-          { id: uid("srv"), name: "בנייה", duration: 90, price: 220, description: "בנייה מלאה וחיזוק" }
+          { id: serviceId, name: "לק ג׳ל", duration: 60, price: 140, description: "כולל ניקוי, עיצוב ומריחה", allowedFrom:"09:00", allowedTo:"17:00" },
+          { id: uid("srv"), name: "בנייה", duration: 90, price: 220, description: "בנייה מלאה וחיזוק", allowedFrom:"10:00", allowedTo:"16:00" }
         ],
-        customers: [
-          { id: customerId, name: "נופר", phone: "0501111111", email: "n@example.com", password: "123456" }
-        ],
-        appointments: [
-          {
-            id: uid("appt"),
-            customerId,
-            customerName: "נופר",
-            serviceId,
-            serviceName: "לק ג׳ל",
-            employeeId,
-            employeeName: "מורן",
-            dayId: 2,
-            dateLabel: "11 מרץ",
-            slot: "10:00",
-            notes: "",
-            status: "נקבע",
-            createdAt: Date.now()
-          }
-        ]
+        customers: [{ id: customerId, name: "נופר", phone: "0501111111", email: "n@example.com", password: "123456" }],
+        appointments: [{
+          id: uid("appt"), customerId, customerName: "נופר", serviceId, serviceName: "לק ג׳ל",
+          employeeId, employeeName: "מורן", dayId: 2, dateKey: DEFAULT_DAYS[1].dateKey, dateLabel: DEFAULT_DAYS[1].date,
+          slot: "10:00", notes: "", status: "נקבע", createdAt: Date.now()
+        }]
       };
       setBusinesses([demo]);
     }
@@ -669,14 +560,12 @@
       const businesses = getBusinesses();
       const totalCustomers = businesses.reduce((sum,b)=>sum+b.customers.length,0);
       const totalAppointments = businesses.reduce((sum,b)=>sum+b.appointments.length,0);
-
       $("platformStats").innerHTML = `
         <div class="stat"><strong>${businesses.length}</strong><span>עסקים</span></div>
         <div class="stat"><strong>${totalCustomers}</strong><span>לקוחות</span></div>
         <div class="stat"><strong>${totalAppointments}</strong><span>תורים</span></div>
         <div class="stat"><strong>${businesses.filter(b=>b.plan==="Pro"||b.plan==="Scale").length}</strong><span>עסקי פרו/סקייל</span></div>
       `;
-
       $("businessCards").innerHTML = businesses.map(b => `
         <div class="item">
           <div class="between">
@@ -711,9 +600,11 @@
     function renderBusinessAdmin(){
       const owner = state.ownerSession;
       if(!owner){ showView("platform"); return; }
-
       const business = findBusiness(owner.businessId);
       if(!business){ logoutAll(); return; }
+      if(!business.availability) business.availability = getDefaultAvailability();
+      if(!business.blockedDates) business.blockedDates = [];
+      if(!business.blockedSlots) business.blockedSlots = [];
 
       state.activeBusinessId = business.id;
       $("adminPlanTag").textContent = business.plan;
@@ -735,7 +626,7 @@
             <h4 class="title">${s.name}</h4>
             <span class="tag">${money(s.price)}</span>
           </div>
-          <p class="sub">${s.duration} דק׳</p>
+          <p class="sub">${s.duration} דק׳ · חלון: ${s.allowedFrom || business.availability.start}–${s.allowedTo || business.availability.end}</p>
           <p class="sub">${s.description || ""}</p>
         </div>
       `).join("") || `<div class="notice">אין שירותים עדיין.</div>`;
@@ -749,36 +640,111 @@
         </div>
       `).join("") || `<div class="notice">אין עובדים עדיין.</div>`;
 
-      $("adminStats").innerHTML = `
-        <div class="stat"><strong>${business.services.length}</strong><span>שירותים</span></div>
-        <div class="stat"><strong>${business.employees.length}</strong><span>עובדים</span></div>
-        <div class="stat"><strong>${business.customers.length}</strong><span>לקוחות</span></div>
-        <div class="stat"><strong>${business.appointments.length}</strong><span>תורים</span></div>
-      `;
+      $("workingStart").value = business.availability.start;
+      $("workingEnd").value = business.availability.end;
+      $("slotInterval").value = business.availability.interval;
 
-      $("adminAppointments").innerHTML = business.appointments.map(a => `
-        <tr>
-          <td>${a.customerName}</td>
-          <td>${a.serviceName}</td>
-          <td>${a.employeeName}</td>
-          <td>${a.dateLabel} · ${a.slot}</td>
-          <td><span class="tag ${a.status==="בוטל"?"danger":"ok"}">${a.status}</span></td>
-        </tr>
-      `).join("") || `<tr><td colspan="5">אין תורים עדיין.</td></tr>`;
+      renderBlockSelectors(business);
+      renderAdminBlocks(business);
+      renderAdminCalendar(business);
 
       $("adminCustomers").innerHTML = business.customers.map(c => `
-        <tr>
-          <td>${c.name}</td>
-          <td>${c.phone}</td>
-          <td>${c.email || "-"}</td>
-          <td>${business.appointments.filter(a => a.customerId === c.id).length}</td>
-        </tr>
+        <tr><td>${c.name}</td><td>${c.phone}</td><td>${c.email || "-"}</td><td>${business.appointments.filter(a => a.customerId === c.id).length}</td></tr>
       `).join("") || `<tr><td colspan="4">אין לקוחות עדיין.</td></tr>`;
+    }
+
+    function renderBlockSelectors(business){
+      const options = DEFAULT_DAYS.map(d => `<option value="${d.dateKey}">${d.label} · ${d.date}</option>`).join("");
+      $("blockDateSelect").innerHTML = options;
+      $("blockSlotDateSelect").innerHTML = options;
+      $("blockSlotTime").innerHTML = buildSlots(business.availability.start, business.availability.end, business.availability.interval)
+        .map(s => `<option value="${s}">${s}</option>`).join("");
+    }
+
+    function renderAdminBlocks(business){
+      const fullDayBlocks = business.blockedDates.map(dateKey => {
+        const day = DEFAULT_DAYS.find(d => d.dateKey === dateKey);
+        return `<div class="item"><div class="between"><div><h4 class="title">יום חסום</h4><p class="sub">${day ? day.date : dateKey}</p></div><button class="btnDanger" data-unblock-date="${dateKey}">הסר</button></div></div>`;
+      });
+      const slotBlocks = business.blockedSlots.map(block => {
+        const day = DEFAULT_DAYS.find(d => d.dateKey === block.dateKey);
+        return `<div class="item"><div class="between"><div><h4 class="title">שעה חסומה</h4><p class="sub">${day ? day.date : block.dateKey} · ${block.slot}</p></div><button class="btnDanger" data-unblock-slot="${block.dateKey}|${block.slot}">הסר</button></div></div>`;
+      });
+
+      $("adminBlocks").innerHTML = [...fullDayBlocks, ...slotBlocks].join("") || `<div class="notice">אין חסימות כרגע.</div>`;
+
+      document.querySelectorAll("[data-unblock-date]").forEach(btn => {
+        btn.onclick = () => {
+          updateBusiness(business.id, b => {
+            b.blockedDates = b.blockedDates.filter(x => x !== btn.dataset.unblockDate);
+          });
+          renderBusinessAdmin();
+          if(state.activeBusinessId === business.id) renderBusinessPublic();
+        };
+      });
+
+      document.querySelectorAll("[data-unblock-slot]").forEach(btn => {
+        btn.onclick = () => {
+          const [dateKey, slot] = btn.dataset.unblockSlot.split("|");
+          updateBusiness(business.id, b => {
+            b.blockedSlots = b.blockedSlots.filter(x => !(x.dateKey === dateKey && x.slot === slot));
+          });
+          renderBusinessAdmin();
+          if(state.activeBusinessId === business.id) renderBusinessPublic();
+        };
+      });
+    }
+
+    function renderAdminCalendar(business){
+      $("adminCalendarHeaders").innerHTML = ["א׳","ב׳","ג׳","ד׳","ה׳","ו׳","ש׳"].map(x => `<div class="calHeader">${x}</div>`).join("");
+      $("adminCalendarGrid").innerHTML = DEFAULT_DAYS.map(d => {
+        const count = business.appointments.filter(a => a.dateKey === d.dateKey && a.status !== "בוטל").length;
+        const blocked = business.blockedDates.includes(d.dateKey);
+        return `
+          <div class="calCell ${state.selectedAdminDateKey===d.dateKey ? "selected":""}" data-admin-day="${d.dateKey}">
+            <strong>${d.dayNumber}</strong>
+            <div class="calMeta">${d.date}</div>
+            <div class="calMeta">${blocked ? "חסום מלא" : `${count} תורים`}</div>
+          </div>
+        `;
+      }).join("");
+
+      document.querySelectorAll("[data-admin-day]").forEach(btn => {
+        btn.onclick = () => {
+          state.selectedAdminDateKey = btn.dataset.adminDay;
+          renderAdminCalendar(business);
+          renderSelectedDayAppointments(business);
+        };
+      });
+
+      renderSelectedDayAppointments(business);
+    }
+
+    function renderSelectedDayAppointments(business){
+      if(!state.selectedAdminDateKey) state.selectedAdminDateKey = DEFAULT_DAYS[0].dateKey;
+      const day = DEFAULT_DAYS.find(d => d.dateKey === state.selectedAdminDateKey);
+      $("selectedDayLabel").textContent = day ? `${day.date}` : state.selectedAdminDateKey;
+      const rows = business.appointments
+        .filter(a => a.dateKey === state.selectedAdminDateKey)
+        .sort((a,b)=>compareTime(a.slot,b.slot));
+
+      $("selectedDayAppointments").innerHTML = rows.length ? rows.map(a => `
+        <div class="item">
+          <div class="between">
+            <h4 class="title">${a.customerName}</h4>
+            <span class="tag ${a.status==="בוטל"?"danger":"ok"}">${a.status}</span>
+          </div>
+          <p class="sub">${a.serviceName} · ${a.employeeName} · ${a.slot}</p>
+        </div>
+      `).join("") : `<div class="notice">אין תורים ליום הזה.</div>`;
     }
 
     function renderBusinessPublic(){
       const business = findBusiness(state.activeBusinessId);
       if(!business){ showView("platform"); return; }
+      if(!business.availability) business.availability = getDefaultAvailability();
+      if(!business.blockedDates) business.blockedDates = [];
+      if(!business.blockedSlots) business.blockedSlots = [];
 
       document.documentElement.style.setProperty("--portal1", business.color1 || "#111827");
       document.documentElement.style.setProperty("--portal2", business.color2 || "#374151");
@@ -825,6 +791,28 @@
       });
     }
 
+    function getAvailableSlotsForDay(business, service, employeeId, day){
+      const allSlots = buildSlots(business.availability.start, business.availability.end, business.availability.interval);
+      const blockedDay = business.blockedDates.includes(day.dateKey);
+      if(blockedDay) return [];
+
+      const serviceFrom = service?.allowedFrom || business.availability.start;
+      const serviceTo = service?.allowedTo || business.availability.end;
+
+      return allSlots.filter(slot => {
+        if(compareTime(slot, serviceFrom) < 0) return false;
+        if(compareTime(slot, serviceTo) >= 0) return false;
+        if(business.blockedSlots.some(x => x.dateKey === day.dateKey && x.slot === slot)) return false;
+        if(employeeId && business.appointments.some(a =>
+          a.status !== "בוטל" &&
+          a.employeeId === employeeId &&
+          a.dateKey === day.dateKey &&
+          a.slot === slot
+        )) return false;
+        return true;
+      });
+    }
+
     function renderPublicBookingArea(business){
       const booking = state.booking;
 
@@ -834,7 +822,7 @@
             <h4 class="title">${s.name}</h4>
             <span class="tag">${money(s.price)}</span>
           </div>
-          <p class="sub">${s.duration} דק׳</p>
+          <p class="sub">${s.duration} דק׳ · חלון: ${s.allowedFrom || business.availability.start}–${s.allowedTo || business.availability.end}</p>
           <p class="sub">${s.description || ""}</p>
         </div>
       `).join("") || `<div class="notice">אין שירותים זמינים.</div>`;
@@ -848,24 +836,30 @@
         </div>
       `).join("") || `<div class="notice">אין עובדים זמינים.</div>`;
 
-      $("publicDays").innerHTML = DEFAULT_DAYS.map(d => `
-        <div class="day ${booking.day?.id===d.id ? "selected":""}" data-day="${d.id}">
-          <small>${d.label}</small>
-          <strong>${d.date}</strong>
-        </div>
-      `).join("");
+      const service = business.services.find(s => s.id === booking.serviceId);
 
-      const busySlots = business.appointments
-        .filter(a => a.status !== "בוטל" && booking.employeeId && a.employeeId === booking.employeeId && booking.day && a.dayId === booking.day.id)
-        .map(a => a.slot);
+      $("publicDays").innerHTML = DEFAULT_DAYS.map(d => {
+        const blocked = business.blockedDates.includes(d.dateKey);
+        const slots = getAvailableSlotsForDay(business, service, booking.employeeId, d);
+        return `
+          <div class="day ${booking.day?.dateKey===d.dateKey ? "selected":""} ${blocked ? "hidden":""}" data-day="${d.dateKey}">
+            <small>${d.label}</small>
+            <strong>${d.date}</strong>
+            <small>${blocked ? "חסום" : `${slots.length} שעות`}</small>
+          </div>
+        `;
+      }).join("");
 
-      $("publicSlots").innerHTML = DEFAULT_SLOTS.map(slot => {
-        const busy = busySlots.includes(slot);
-        return `<div class="slot ${booking.slot===slot ? "selected":""} ${busy ? "hidden":""}" data-slot="${slot}">${slot}</div>`;
-      }).join("") + (busySlots.length === DEFAULT_SLOTS.length ? `<div class="notice warn">אין שעות פנויות לעובד הזה ביום שנבחר.</div>` : "");
+      const availableSlots = booking.day ? getAvailableSlotsForDay(business, service, booking.employeeId, booking.day) : [];
+      $("publicSlots").innerHTML = booking.day
+        ? (availableSlots.length
+            ? availableSlots.map(slot => `<div class="slot ${booking.slot===slot ? "selected":""}" data-slot="${slot}">${slot}</div>`).join("")
+            : `<div class="notice warn">אין שעות פנויות ביום הזה לפי ההגדרות/החסימות.</div>`)
+        : `<div class="notice">בחר יום כדי לראות שעות פנויות.</div>`;
 
       document.querySelectorAll("[data-service]").forEach(btn => btn.onclick = () => {
         booking.serviceId = btn.dataset.service;
+        booking.slot = null;
         updateBookingSummary(business);
         renderPublicBookingArea(business);
       });
@@ -876,7 +870,7 @@
         renderPublicBookingArea(business);
       });
       document.querySelectorAll("[data-day]").forEach(btn => btn.onclick = () => {
-        booking.day = DEFAULT_DAYS.find(d => String(d.id) === btn.dataset.day);
+        booking.day = DEFAULT_DAYS.find(d => d.dateKey === btn.dataset.day);
         booking.slot = null;
         updateBookingSummary(business);
         renderPublicBookingArea(business);
@@ -894,12 +888,10 @@
       const booking = state.booking;
       const service = business.services.find(s => s.id === booking.serviceId);
       const employee = business.employees.find(e => e.id === booking.employeeId);
-
       const parts = [];
       if(service) parts.push(service.name);
       if(employee) parts.push(employee.name);
       if(booking.day && booking.slot) parts.push(`${booking.day.date} · ${booking.slot}`);
-
       $("bookingSummary").textContent = parts.length ? parts.join(" | ") : "יש לבחור שירות, איש צוות, יום ושעה.";
       $("bookingPrice").textContent = service ? money(service.price) : money(0);
     }
@@ -918,17 +910,9 @@
       el.textContent = text;
     }
 
-    function openOwnerModal(tab="login"){
-      $("ownerModalWrap").classList.add("open");
-      switchOwnerTab(tab);
-      setOwnerMessage("");
-    }
+    function openOwnerModal(tab="login"){ $("ownerModalWrap").classList.add("open"); switchOwnerTab(tab); setOwnerMessage(""); }
     function closeOwnerModal(){ $("ownerModalWrap").classList.remove("open"); }
-    function openQuickModal(title, html){
-      $("quickModalTitle").textContent = title;
-      $("quickModalBody").innerHTML = html;
-      $("quickModalWrap").classList.add("open");
-    }
+    function openQuickModal(title, html){ $("quickModalTitle").textContent = title; $("quickModalBody").innerHTML = html; $("quickModalWrap").classList.add("open"); }
     function closeQuickModal(){ $("quickModalWrap").classList.remove("open"); }
 
     function switchOwnerTab(tab){
@@ -936,7 +920,6 @@
       $("ownerLoginTab").classList.toggle("hidden", tab !== "login");
       $("ownerRegisterTab").classList.toggle("hidden", tab !== "register");
     }
-
     function switchCustomerTab(tab){
       document.querySelectorAll("[data-customer-tab]").forEach(btn => btn.classList.toggle("active", btn.dataset.customerTab === tab));
       $("customerLoginTab").classList.toggle("hidden", tab !== "login");
@@ -961,23 +944,16 @@
       }
 
       const businesses = getBusinesses();
-      if(businesses.some(b => normalize(b.owner.email) === ownerEmail)){
-        setOwnerMessage("כבר קיים עסק עם האימייל הזה.");
-        return;
-      }
-      if(businesses.some(b => normalize(b.slug) === slug)){
-        setOwnerMessage("ה-slug תפוס.");
-        return;
-      }
+      if(businesses.some(b => normalize(b.owner.email) === ownerEmail)){ setOwnerMessage("כבר קיים עסק עם האימייל הזה."); return; }
+      if(businesses.some(b => normalize(b.slug) === slug)){ setOwnerMessage("ה-slug תפוס."); return; }
 
       const business = {
-        id: uid("biz"),
-        name, slug, category, color1, color2, description, plan,
+        id: uid("biz"), name, slug, category, color1, color2, description, plan,
+        availability: getDefaultAvailability(),
+        blockedDates: [],
+        blockedSlots: [],
         owner: { name: ownerName, email: ownerEmail, password: ownerPassword },
-        employees: [],
-        services: [],
-        customers: [],
-        appointments: []
+        employees: [], services: [], customers: [], appointments: []
       };
 
       setBusinesses([...businesses, business]);
@@ -991,13 +967,8 @@
     function loginBusiness(){
       const email = normalize($("ownerLoginEmail").value);
       const password = $("ownerLoginPassword").value.trim();
-
       const business = getBusinesses().find(b => normalize(b.owner.email) === email && b.owner.password === password);
-      if(!business){
-        setOwnerMessage("פרטי הכניסה אינם נכונים.");
-        return;
-      }
-
+      if(!business){ setOwnerMessage("פרטי הכניסה אינם נכונים."); return; }
       state.ownerSession = { businessId: business.id, email };
       setOwnerSession(state.ownerSession);
       state.activeBusinessId = business.id;
@@ -1011,17 +982,8 @@
       const phone = $("customerRegisterPhone").value.trim();
       const email = $("customerRegisterEmail").value.trim();
       const password = $("customerRegisterPassword").value.trim();
-
-      if(!name || !phone || !password){
-        setPublicAuthMessage("יש למלא שם, טלפון וסיסמה.");
-        return;
-      }
-
-      if(business.customers.some(c => phoneNorm(c.phone) === phoneNorm(phone))){
-        setPublicAuthMessage("כבר קיים לקוח עם הטלפון הזה בעסק.");
-        return;
-      }
-
+      if(!name || !phone || !password){ setPublicAuthMessage("יש למלא שם, טלפון וסיסמה."); return; }
+      if(business.customers.some(c => phoneNorm(c.phone) === phoneNorm(phone))){ setPublicAuthMessage("כבר קיים לקוח עם הטלפון הזה בעסק."); return; }
       const customer = { id: uid("cus"), name, phone, email, password };
       updateBusiness(business.id, b => b.customers.push(customer));
       state.customerSession = { businessId: business.id, customerId: customer.id, name: customer.name };
@@ -1035,13 +997,8 @@
       const business = findBusiness(state.activeBusinessId);
       const phone = phoneNorm($("customerLoginPhone").value);
       const password = $("customerLoginPassword").value.trim();
-
       const customer = business.customers.find(c => phoneNorm(c.phone) === phone && c.password === password);
-      if(!customer){
-        setPublicAuthMessage("פרטי הכניסה של הלקוח אינם נכונים.");
-        return;
-      }
-
+      if(!customer){ setPublicAuthMessage("פרטי הכניסה של הלקוח אינם נכונים."); return; }
       state.customerSession = { businessId: business.id, customerId: customer.id, name: customer.name };
       setCustomerSession(state.customerSession);
       setPublicAuthMessage("התחברת בהצלחה.", true);
@@ -1051,48 +1008,26 @@
     function bookAppointment(){
       const business = findBusiness(state.activeBusinessId);
       const session = state.customerSession;
-      if(!session || session.businessId !== business.id){
-        setPublicAuthMessage("יש להתחבר או להירשם כלקוח של העסק הזה.", false);
-        return;
-      }
+      if(!session || session.businessId !== business.id){ setPublicAuthMessage("יש להתחבר או להירשם כלקוח של העסק הזה."); return; }
 
       const booking = state.booking;
       const service = business.services.find(s => s.id === booking.serviceId);
       const employee = business.employees.find(e => e.id === booking.employeeId);
       const customer = business.customers.find(c => c.id === session.customerId);
+      if(!service || !employee || !booking.day || !booking.slot){ alert("יש להשלים שירות, עובד, יום ושעה."); return; }
 
-      if(!service || !employee || !booking.day || !booking.slot){
-        alert("יש להשלים שירות, עובד, יום ושעה.");
-        return;
-      }
-
-      const alreadyTaken = business.appointments.some(a =>
-        a.status !== "בוטל" &&
-        a.employeeId === employee.id &&
-        a.dayId === booking.day.id &&
-        a.slot === booking.slot
-      );
-      if(alreadyTaken){
-        alert("השעה הזו כבר תפוסה לעובד הנבחר.");
-        renderBusinessPublic();
-        return;
-      }
+      const availableSlots = getAvailableSlotsForDay(business, service, employee.id, booking.day);
+      if(!availableSlots.includes(booking.slot)){ alert("השעה הזו כבר לא זמינה."); renderBusinessPublic(); return; }
 
       updateBusiness(business.id, b => {
         b.appointments.push({
           id: uid("appt"),
-          customerId: customer.id,
-          customerName: customer.name,
-          serviceId: service.id,
-          serviceName: service.name,
-          employeeId: employee.id,
-          employeeName: employee.name,
-          dayId: booking.day.id,
-          dateLabel: booking.day.date,
-          slot: booking.slot,
-          notes: $("bookingNotes").value.trim(),
-          status: "נקבע",
-          createdAt: Date.now()
+          customerId: customer.id, customerName: customer.name,
+          serviceId: service.id, serviceName: service.name,
+          employeeId: employee.id, employeeName: employee.name,
+          dayId: booking.day.id, dateKey: booking.day.dateKey, dateLabel: booking.day.date,
+          slot: booking.slot, notes: $("bookingNotes").value.trim(),
+          status: "נקבע", createdAt: Date.now()
         });
       });
 
@@ -1104,43 +1039,30 @@
     }
 
     function openAddServiceModal(){
+      const business = findBusiness(state.ownerSession.businessId);
       openQuickModal("הוספת שירות", `
         <div class="formGrid">
-          <div class="field">
-            <label>שם שירות</label>
-            <input id="newServiceName" placeholder="לק ג׳ל" />
-          </div>
-          <div class="field">
-            <label>מחיר</label>
-            <input id="newServicePrice" type="number" placeholder="140" />
-          </div>
-          <div class="field">
-            <label>משך בדקות</label>
-            <input id="newServiceDuration" type="number" placeholder="60" />
-          </div>
-          <div class="field span2">
-            <label>תיאור</label>
-            <textarea id="newServiceDescription" placeholder="תיאור קצר של השירות"></textarea>
-          </div>
+          <div class="field"><label>שם שירות</label><input id="newServiceName" placeholder="לק ג׳ל" /></div>
+          <div class="field"><label>מחיר</label><input id="newServicePrice" type="number" placeholder="140" /></div>
+          <div class="field"><label>משך בדקות</label><input id="newServiceDuration" type="number" placeholder="60" /></div>
+          <div class="field"><label>משעה</label><input id="newServiceFrom" type="time" value="${business.availability.start}" /></div>
+          <div class="field"><label>עד שעה</label><input id="newServiceTo" type="time" value="${business.availability.end}" /></div>
+          <div class="field span2"><label>תיאור</label><textarea id="newServiceDescription" placeholder="תיאור קצר של השירות"></textarea></div>
         </div>
-        <div class="row" style="margin-top:12px">
-          <button class="btn" id="saveServiceBtn">שמור שירות</button>
-        </div>
+        <div class="row" style="margin-top:12px"><button class="btn" id="saveServiceBtn">שמור שירות</button></div>
       `);
 
       $("saveServiceBtn").onclick = () => {
-        const business = findBusiness(state.ownerSession.businessId);
         const name = $("newServiceName").value.trim();
         const price = Number($("newServicePrice").value);
         const duration = Number($("newServiceDuration").value);
         const description = $("newServiceDescription").value.trim();
-
+        const allowedFrom = $("newServiceFrom").value;
+        const allowedTo = $("newServiceTo").value;
         if(!name || !price || !duration) return;
-
         updateBusiness(business.id, b => {
-          b.services.push({ id: uid("srv"), name, price, duration, description });
+          b.services.push({ id: uid("srv"), name, price, duration, description, allowedFrom, allowedTo });
         });
-
         closeQuickModal();
         renderBusinessAdmin();
         if(state.activeBusinessId === business.id) renderBusinessPublic();
@@ -1148,36 +1070,57 @@
     }
 
     function openAddEmployeeModal(){
+      const business = findBusiness(state.ownerSession.businessId);
       openQuickModal("הוספת עובד", `
         <div class="formGrid">
-          <div class="field">
-            <label>שם עובד</label>
-            <input id="newEmployeeName" placeholder="נתנאלה" />
-          </div>
-          <div class="field">
-            <label>תפקיד</label>
-            <input id="newEmployeeRole" placeholder="Hair Stylist" />
-          </div>
+          <div class="field"><label>שם עובד</label><input id="newEmployeeName" placeholder="נתנאלה" /></div>
+          <div class="field"><label>תפקיד</label><input id="newEmployeeRole" placeholder="Hair Stylist" /></div>
         </div>
-        <div class="row" style="margin-top:12px">
-          <button class="btn" id="saveEmployeeBtn">שמור עובד</button>
-        </div>
+        <div class="row" style="margin-top:12px"><button class="btn" id="saveEmployeeBtn">שמור עובד</button></div>
       `);
 
       $("saveEmployeeBtn").onclick = () => {
-        const business = findBusiness(state.ownerSession.businessId);
         const name = $("newEmployeeName").value.trim();
         const role = $("newEmployeeRole").value.trim();
         if(!name || !role) return;
-
-        updateBusiness(business.id, b => {
-          b.employees.push({ id: uid("emp"), name, role });
-        });
-
+        updateBusiness(business.id, b => b.employees.push({ id: uid("emp"), name, role }));
         closeQuickModal();
         renderBusinessAdmin();
         if(state.activeBusinessId === business.id) renderBusinessPublic();
       };
+    }
+
+    function saveAvailability(){
+      const business = findBusiness(state.ownerSession.businessId);
+      const start = $("workingStart").value;
+      const end = $("workingEnd").value;
+      const interval = Number($("slotInterval").value);
+      if(!start || !end || !interval) return;
+      updateBusiness(business.id, b => { b.availability = { start, end, interval }; });
+      renderBusinessAdmin();
+      if(state.activeBusinessId === business.id) renderBusinessPublic();
+      alert("הגדרות שעות נשמרו.");
+    }
+
+    function blockFullDay(){
+      const business = findBusiness(state.ownerSession.businessId);
+      const dateKey = $("blockDateSelect").value;
+      updateBusiness(business.id, b => {
+        if(!b.blockedDates.includes(dateKey)) b.blockedDates.push(dateKey);
+      });
+      renderBusinessAdmin();
+      if(state.activeBusinessId === business.id) renderBusinessPublic();
+    }
+
+    function blockSpecificSlot(){
+      const business = findBusiness(state.ownerSession.businessId);
+      const dateKey = $("blockSlotDateSelect").value;
+      const slot = $("blockSlotTime").value;
+      updateBusiness(business.id, b => {
+        if(!b.blockedSlots.some(x => x.dateKey === dateKey && x.slot === slot)) b.blockedSlots.push({ dateKey, slot });
+      });
+      renderBusinessAdmin();
+      if(state.activeBusinessId === business.id) renderBusinessPublic();
     }
 
     function copyBusinessUrl(){
@@ -1206,35 +1149,26 @@
       $("closeOwnerModalBtn").onclick = closeOwnerModal;
       $("closeQuickModalBtn").onclick = closeQuickModal;
 
-      document.querySelectorAll("[data-owner-tab]").forEach(btn => {
-        btn.onclick = () => switchOwnerTab(btn.dataset.ownerTab);
-      });
-      document.querySelectorAll("[data-customer-tab]").forEach(btn => {
-        btn.onclick = () => switchCustomerTab(btn.dataset.customerTab);
-      });
+      document.querySelectorAll("[data-owner-tab]").forEach(btn => btn.onclick = () => switchOwnerTab(btn.dataset.ownerTab));
+      document.querySelectorAll("[data-customer-tab]").forEach(btn => btn.onclick = () => switchCustomerTab(btn.dataset.customerTab));
 
       $("ownerRegisterBtn").onclick = registerBusiness;
       $("ownerLoginBtn").onclick = loginBusiness;
       $("customerRegisterBtn").onclick = registerCustomer;
       $("customerLoginBtn").onclick = loginCustomer;
       $("bookAppointmentBtn").onclick = bookAppointment;
-      $("resetBookingBtn").onclick = () => {
-        state.booking = { serviceId:null, employeeId:null, day:null, slot:null };
-        $("bookingNotes").value = "";
-        renderBusinessPublic();
-      };
+      $("resetBookingBtn").onclick = () => { state.booking = { serviceId:null, employeeId:null, day:null, slot:null }; $("bookingNotes").value = ""; renderBusinessPublic(); };
 
       $("addServiceBtn").onclick = openAddServiceModal;
       $("addEmployeeBtn").onclick = openAddEmployeeModal;
       $("copyBusinessUrlBtn").onclick = copyBusinessUrl;
       $("openPublicFromAdminBtn").onclick = () => showView("businessPublic");
+      $("saveAvailabilityBtn").onclick = saveAvailability;
+      $("blockFullDayBtn").onclick = blockFullDay;
+      $("blockSpecificSlotBtn").onclick = blockSpecificSlot;
 
-      $("ownerModalWrap").addEventListener("click", e => {
-        if(e.target === $("ownerModalWrap")) closeOwnerModal();
-      });
-      $("quickModalWrap").addEventListener("click", e => {
-        if(e.target === $("quickModalWrap")) closeQuickModal();
-      });
+      $("ownerModalWrap").addEventListener("click", e => { if(e.target === $("ownerModalWrap")) closeOwnerModal(); });
+      $("quickModalWrap").addEventListener("click", e => { if(e.target === $("quickModalWrap")) closeQuickModal(); });
     }
 
     function initSessions(){
