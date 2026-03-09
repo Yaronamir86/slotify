@@ -1,330 +1,1258 @@
-
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MiniBooking SaaS Platform</title>
-<style>
-body{font-family:Arial;background:#f5f5f5;margin:0}
-header{background:#111;color:#fff;padding:14px}
-.container{max-width:1100px;margin:auto;padding:20px}
-.card{background:#fff;padding:16px;border-radius:10px;margin-bottom:14px}
-button{padding:10px 14px;border:none;border-radius:6px;background:#111;color:#fff;cursor:pointer}
-input,select{padding:8px;width:100%;margin-top:4px;margin-bottom:10px}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.hidden{display:none}
-.service{border:1px solid #ddd;padding:10px;border-radius:8px;margin-bottom:8px;cursor:pointer}
-.selected{border:2px solid #111}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>MiniSlotify SaaS Platform</title>
+  <meta name="theme-color" content="#1f2937" />
+  <style>
+    :root{
+      --bg:#f6f4ef;
+      --panel:rgba(255,255,255,.88);
+      --panel-strong:#fff;
+      --text:#171717;
+      --muted:#6b7280;
+      --line:#e5e7eb;
+      --accent:#111827;
+      --accent-2:#374151;
+      --ok:#166534;
+      --danger:#b91c1c;
+      --warn:#a16207;
+      --shadow:0 18px 48px rgba(17,24,39,.08);
+      --radius:22px;
+      --radius-sm:16px;
+      --max:1300px;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0}
+    body{
+      font-family:Inter,Arial,sans-serif;
+      background:
+        radial-gradient(circle at top right, #fff 0%, rgba(255,255,255,.55) 18%, transparent 40%),
+        linear-gradient(180deg,#f8f6f1 0%,#f1ede5 100%);
+      color:var(--text);
+      min-height:100vh;
+    }
+    button,input,select,textarea{font:inherit}
+    button{cursor:pointer}
+    .hidden{display:none!important}
+    .shell{width:min(var(--max),100%);margin:0 auto;padding:14px}
+    .topbar{
+      position:sticky;top:0;z-index:30;
+      display:flex;align-items:center;justify-content:space-between;gap:12px;
+      padding:12px;
+      margin-bottom:14px;
+      background:rgba(255,255,255,.78);
+      border:1px solid var(--line);
+      border-radius:20px;
+      box-shadow:var(--shadow);
+      backdrop-filter:blur(14px);
+    }
+    .brand{display:flex;align-items:center;gap:12px;min-width:0}
+    .mark{
+      width:44px;height:44px;border-radius:14px;
+      display:grid;place-items:center;
+      background:linear-gradient(135deg,#111827,#4b5563);
+      color:#fff;font-weight:800;flex:0 0 auto
+    }
+    .brand h1{margin:0;font-size:1rem;line-height:1.1}
+    .brand p{margin:4px 0 0;color:var(--muted);font-size:.85rem}
+    .actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+    .btn,.btnGhost,.btnDanger,.pill{
+      border:none;border-radius:14px;padding:11px 14px;transition:.18s ease
+    }
+    .btn{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff}
+    .btnGhost{background:#fff;border:1px solid var(--line);color:var(--text)}
+    .btnDanger{background:#fff3f3;border:1px solid #fecaca;color:var(--danger)}
+    .pill{background:#fff;border:1px solid var(--line);color:var(--muted);padding:9px 11px}
+    .btn:hover,.btnGhost:hover,.btnDanger:hover,.pill:hover{transform:translateY(-1px)}
+    .view{display:none}
+    .view.active{display:block}
+    .hero,.grid2,.grid3,.grid4,.cards,.statsGrid,.formGrid,.slots,.days{display:grid;gap:12px}
+    .hero,.grid2,.grid3,.grid4,.cards,.statsGrid,.formGrid{grid-template-columns:1fr}
+    .panel,.heroCard,.card,.item,.slot,.day{
+      background:var(--panel);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      backdrop-filter:blur(12px);
+    }
+    .panel,.heroCard,.card,.item{padding:16px}
+    .hero{margin-bottom:14px}
+    .heroCard h2{margin:0 0 10px;font-size:clamp(1.8rem,5vw,3rem);line-height:1.04;letter-spacing:-.04em}
+    .heroCard p{margin:0;color:var(--muted);line-height:1.7}
+    .eyebrow{
+      display:inline-flex;align-items:center;gap:8px;
+      background:#fff;border:1px solid var(--line);
+      color:var(--muted);padding:8px 12px;border-radius:999px;
+      font-size:.88rem;margin-bottom:14px
+    }
+    .head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
+    .head h3{margin:0;font-size:1.05rem}
+    .muted{color:var(--muted)}
+    .stat{
+      background:#fff;border:1px solid var(--line);
+      border-radius:18px;padding:14px
+    }
+    .stat strong{display:block;font-size:1.45rem;letter-spacing:-.04em;margin-bottom:4px}
+    .title{margin:0 0 8px;font-size:1rem}
+    .sub{margin:0;color:var(--muted);line-height:1.6;font-size:.94rem}
+    .tag{
+      display:inline-flex;align-items:center;gap:6px;
+      border-radius:999px;padding:7px 10px;font-size:.82rem;
+      background:#f3f4f6;color:#374151
+    }
+    .tag.ok{background:#ecfdf5;color:var(--ok)}
+    .tag.danger{background:#fef2f2;color:var(--danger)}
+    .tag.warn{background:#fffbeb;color:var(--warn)}
+    .item.selectable,.slot,.day{cursor:pointer;transition:.18s ease}
+    .item.selectable:hover,.slot:hover,.day:hover{transform:translateY(-1px);background:#fff}
+    .selected{outline:2px solid #111827;background:#fff}
+    .field{display:flex;flex-direction:column;gap:7px}
+    .field label{font-size:.9rem;color:var(--muted)}
+    .field input,.field select,.field textarea{
+      width:100%;border:1px solid var(--line);background:#fff;
+      border-radius:14px;padding:12px 13px;color:var(--text);outline:none
+    }
+    .field textarea{min-height:96px;resize:vertical}
+    .span2{grid-column:span 1}
+    .row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+    .between{display:flex;align-items:center;justify-content:space-between;gap:10px}
+    .tableWrap{overflow:auto}
+    table{width:100%;min-width:700px;border-collapse:collapse}
+    th,td{padding:12px 10px;border-bottom:1px solid var(--line);text-align:right;font-size:.93rem}
+    th{color:var(--muted);font-weight:600}
+    tr:last-child td{border-bottom:none}
+    .notice{
+      background:#fff;border:1px solid var(--line);color:var(--muted);
+      border-radius:16px;padding:12px 14px;line-height:1.6
+    }
+    .notice.ok{background:#f0fdf4;border-color:#bbf7d0;color:var(--ok)}
+    .notice.warn{background:#fffbeb;border-color:#fde68a;color:var(--warn)}
+    .portalHero{
+      border-radius:28px;padding:24px;color:#fff;overflow:hidden;position:relative
+    }
+    .portalHero:before{
+      content:"";position:absolute;inset:0;background:linear-gradient(135deg,var(--portal1,#111827),var(--portal2,#374151));
+      z-index:0
+    }
+    .portalHero > *{position:relative;z-index:1}
+    .portalHero h2{margin:0 0 8px;font-size:clamp(1.8rem,5vw,2.7rem)}
+    .portalHero p{margin:0;opacity:.9;line-height:1.7}
+    .logoCircle{
+      width:58px;height:58px;border-radius:18px;display:grid;place-items:center;
+      background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.18);font-weight:800
+    }
+    .days{grid-template-columns:repeat(4,1fr)}
+    .day{text-align:center;padding:12px 8px}
+    .day small{display:block;color:var(--muted);margin-bottom:6px}
+    .slots{grid-template-columns:repeat(2,1fr)}
+    .slot{text-align:center;padding:14px 10px;font-weight:700}
+    .stickyBox{
+      position:sticky;bottom:10px;z-index:20;
+      background:rgba(255,255,255,.9);
+      border:1px solid var(--line);border-radius:20px;
+      box-shadow:var(--shadow);padding:12px;margin-top:12px
+    }
+    .modalWrap{
+      position:fixed;inset:0;background:rgba(15,23,42,.45);backdrop-filter:blur(8px);
+      display:none;align-items:flex-end;justify-content:center;padding:12px;z-index:100
+    }
+    .modalWrap.open{display:flex}
+    .modal{
+      width:min(860px,100%);max-height:92vh;overflow:auto;
+      background:#fff;border:1px solid var(--line);border-radius:24px 24px 18px 18px;
+      box-shadow:var(--shadow);padding:18px
+    }
+    .tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+    .tab{border:none;border-radius:14px;padding:12px;background:#fff;border:1px solid var(--line)}
+    .tab.active{outline:2px solid #111827;background:#f9fafb}
+    .divider{height:1px;background:var(--line);margin:14px 0}
+    @media (min-width:760px){
+      .shell{padding:20px}
+      .hero{grid-template-columns:1.15fr .85fr}
+      .grid2{grid-template-columns:repeat(2,1fr)}
+      .grid3{grid-template-columns:repeat(3,1fr)}
+      .grid4{grid-template-columns:repeat(4,1fr)}
+      .cards{grid-template-columns:repeat(2,1fr)}
+      .statsGrid{grid-template-columns:repeat(4,1fr)}
+      .formGrid{grid-template-columns:repeat(2,1fr)}
+      .span2{grid-column:span 2}
+      .days{grid-template-columns:repeat(7,1fr)}
+      .slots{grid-template-columns:repeat(4,1fr)}
+      .modalWrap{align-items:center}
+      .modal{border-radius:24px;padding:20px}
+    }
+  </style>
 </head>
 <body>
-
-<header>
-MiniBooking SaaS Platform
-</header>
-
-<div class="container">
-
-<div id="platformView">
-<div class="card">
-<h2>Super Admin – כל העסקים</h2>
-<button onclick="showCreateBusiness()">צור עסק חדש</button>
-</div>
-
-<div id="businessList"></div>
-</div>
-
-<div id="createBusinessView" class="hidden">
-<div class="card">
-<h2>יצירת עסק</h2>
-
-שם העסק
-<input id="bizName">
-
-Slug (כתובת)
-<input id="bizSlug">
-
-<button onclick="createBusiness()">צור עסק</button>
-<button onclick="backHome()">חזור</button>
-</div>
-</div>
-
-<div id="businessAdminView" class="hidden">
-<div class="card">
-<h2 id="adminTitle"></h2>
-
-<button onclick="openPublicPage()">פתח עמוד לקוחות</button>
-
-<h3>שירותים</h3>
-
-שם שירות
-<input id="serviceName">
-
-מחיר
-<input id="servicePrice">
-
-<button onclick="addService()">הוסף שירות</button>
-
-<div id="servicesList"></div>
-
-<button onclick="backHome()">חזור לפלטפורמה</button>
-
-</div>
-</div>
-
-<div id="publicPageView" class="hidden">
-
-<div class="card">
-<h2 id="publicTitle"></h2>
-
-<h3>בחר שירות</h3>
-
-<div id="publicServices"></div>
-
-<h3>שם לקוח</h3>
-<input id="customerName">
-
-<h3>שעה</h3>
-<select id="slot">
-<option>09:00</option>
-<option>10:00</option>
-<option>11:00</option>
-<option>12:00</option>
-<option>13:00</option>
-<option>14:00</option>
-</select>
-
-<button onclick="book()">קבע תור</button>
-
-</div>
-
-<div class="card">
-<h3>תורים שנקבעו</h3>
-<div id="appointments"></div>
-</div>
-
-<button onclick="backHome()">חזור</button>
-
-</div>
-
-</div>
-
-<script>
-
-let businesses = JSON.parse(localStorage.getItem("biz")||"[]")
-let currentBusiness=null
-let selectedService=null
-
-function save(){
-localStorage.setItem("biz",JSON.stringify(businesses))
-}
-
-function renderBusinesses(){
-
-let el=document.getElementById("businessList")
-el.innerHTML=""
-
-businesses.forEach(b=>{
-
-let div=document.createElement("div")
-div.className="card"
-
-div.innerHTML=`
-<h3>${b.name}</h3>
-slug: ${b.slug}<br><br>
-
-<button onclick="openAdmin('${b.slug}')">דשבורד עסק</button>
-<button onclick="openPublic('${b.slug}')">עמוד לקוחות</button>
-`
-
-el.appendChild(div)
-
-})
-
-}
-
-function showCreateBusiness(){
-
-document.getElementById("platformView").classList.add("hidden")
-document.getElementById("createBusinessView").classList.remove("hidden")
-
-}
-
-function createBusiness(){
-
-let name=document.getElementById("bizName").value
-let slug=document.getElementById("bizSlug").value
-
-if(!name||!slug)return
-
-businesses.push({
-name,
-slug,
-services:[],
-appointments:[]
-})
-
-save()
-
-backHome()
-
-}
-
-function backHome(){
-
-document.getElementById("platformView").classList.remove("hidden")
-document.getElementById("createBusinessView").classList.add("hidden")
-document.getElementById("businessAdminView").classList.add("hidden")
-document.getElementById("publicPageView").classList.add("hidden")
-
-renderBusinesses()
-
-}
-
-function openAdmin(slug){
-
-currentBusiness=businesses.find(b=>b.slug==slug)
-
-document.getElementById("platformView").classList.add("hidden")
-document.getElementById("businessAdminView").classList.remove("hidden")
-
-document.getElementById("adminTitle").innerText=currentBusiness.name
-
-renderServices()
-
-}
-
-function addService(){
-
-let name=document.getElementById("serviceName").value
-let price=document.getElementById("servicePrice").value
-
-currentBusiness.services.push({name,price})
-
-save()
-
-renderServices()
-
-}
-
-function renderServices(){
-
-let el=document.getElementById("servicesList")
-el.innerHTML=""
-
-currentBusiness.services.forEach(s=>{
-
-let div=document.createElement("div")
-div.className="service"
-
-div.innerHTML=`${s.name} - ₪${s.price}`
-
-el.appendChild(div)
-
-})
-
-}
-
-function openPublicPage(){
-
-openPublic(currentBusiness.slug)
-
-}
-
-function openPublic(slug){
-
-currentBusiness=businesses.find(b=>b.slug==slug)
-
-document.getElementById("platformView").classList.add("hidden")
-document.getElementById("publicPageView").classList.remove("hidden")
-
-document.getElementById("publicTitle").innerText=currentBusiness.name
-
-renderPublicServices()
-
-renderAppointments()
-
-}
-
-function renderPublicServices(){
-
-let el=document.getElementById("publicServices")
-el.innerHTML=""
-
-currentBusiness.services.forEach((s,i)=>{
-
-let div=document.createElement("div")
-div.className="service"
-
-div.onclick=()=>{
-
-selectedService=i
-
-renderPublicServices()
-
-}
-
-if(selectedService==i)div.classList.add("selected")
-
-div.innerHTML=`${s.name} - ₪${s.price}`
-
-el.appendChild(div)
-
-})
-
-}
-
-function book(){
-
-let name=document.getElementById("customerName").value
-let slot=document.getElementById("slot").value
-
-if(!name||selectedService==null)return
-
-let service=currentBusiness.services[selectedService]
-
-currentBusiness.appointments.push({
-
-name,
-slot,
-service:service.name
-
-})
-
-save()
-
-renderAppointments()
-
-}
-
-function renderAppointments(){
-
-let el=document.getElementById("appointments")
-el.innerHTML=""
-
-currentBusiness.appointments.forEach(a=>{
-
-let div=document.createElement("div")
-div.className="service"
-
-div.innerHTML=`
-
-${a.name}<br>
-${a.service}<br>
-${a.slot}
-
-`
-
-el.appendChild(div)
-
-})
-
-}
-
-renderBusinesses()
-
-</script>
-
+  <div class="shell">
+    <header class="topbar">
+      <div class="brand">
+        <div class="mark">MS</div>
+        <div>
+          <h1>MiniSlotify Platform</h1>
+          <p>פלטפורמת־על עם מיני־מערכת נפרדת לכל עסק</p>
+        </div>
+      </div>
+      <div class="actions">
+        <span id="topStatus" class="pill">Super Admin</span>
+        <button class="btnGhost" id="goPlatformBtn">פלטפורמה</button>
+        <button class="btnGhost hidden" id="goBusinessAdminBtn">דשבורד עסק</button>
+        <button class="btnGhost hidden" id="goBusinessPublicBtn">עמוד העסק</button>
+        <button class="btnGhost" id="openOwnerAuthBtn">כניסת עסק</button>
+        <button class="btnGhost hidden" id="logoutBtn">התנתק</button>
+      </div>
+    </header>
+
+    <section id="platformView" class="view active">
+      <div class="hero">
+        <div class="heroCard">
+          <div class="eyebrow">Super Admin • Businesses • Mini Booking Systems</div>
+          <h2>מבט־על על כל העסקים, כשלכל אחד יש עמוד הזמנות עצמאי משלו.</h2>
+          <p>הלקוח לא בוחר עסק מתוך פורטל גלובלי. לכל עסק יש עמוד משלו, לקוחות משלו, שירותים משלו, תורים משלו ודשבורד משלו. אתה רואה הכול מלמעלה.</p>
+          <div class="row" style="margin-top:16px">
+            <button class="btn" id="createBusinessBtn">צור עסק חדש</button>
+          </div>
+        </div>
+        <aside class="heroCard">
+          <div class="head"><h3>מדדי פלטפורמה</h3></div>
+          <div id="platformStats" class="statsGrid"></div>
+        </aside>
+      </div>
+
+      <div class="panel">
+        <div class="head">
+          <h3>כל העסקים</h3>
+          <span class="muted">כל כרטיס הוא “מיני־סלוטיפיי” נפרד</span>
+        </div>
+        <div id="businessCards" class="cards"></div>
+      </div>
+    </section>
+
+    <section id="businessAdminView" class="view">
+      <div class="grid2">
+        <div class="panel">
+          <div class="head">
+            <h3>פרטי העסק</h3>
+            <span id="adminPlanTag" class="tag"></span>
+          </div>
+          <div id="adminBusinessCard" class="card"></div>
+
+          <div class="divider"></div>
+
+          <div class="head">
+            <h3>שירותים</h3>
+            <button class="btnGhost" id="addServiceBtn">הוסף שירות</button>
+          </div>
+          <div id="adminServices" class="cards"></div>
+
+          <div class="divider"></div>
+
+          <div class="head">
+            <h3>צוות</h3>
+            <button class="btnGhost" id="addEmployeeBtn">הוסף עובד</button>
+          </div>
+          <div id="adminEmployees" class="cards"></div>
+        </div>
+
+        <div class="panel">
+          <div class="head">
+            <h3>ביצועי העסק</h3>
+            <span class="muted">דשבורד עצמאי לעסק</span>
+          </div>
+          <div id="adminStats" class="statsGrid"></div>
+
+          <div class="divider"></div>
+
+          <div class="head">
+            <h3>קישור לעמוד העסק</h3>
+          </div>
+          <div class="notice">
+            <div class="between">
+              <span id="businessPublicUrl">/business/slug</span>
+              <div class="row">
+                <button class="btnGhost" id="copyBusinessUrlBtn">העתק</button>
+                <button class="btn" id="openPublicFromAdminBtn">פתח</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="head"><h3>תורים</h3></div>
+          <div class="tableWrap card">
+            <table>
+              <thead>
+                <tr>
+                  <th>לקוח</th>
+                  <th>שירות</th>
+                  <th>עובד</th>
+                  <th>מועד</th>
+                  <th>סטטוס</th>
+                </tr>
+              </thead>
+              <tbody id="adminAppointments"></tbody>
+            </table>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="head"><h3>לקוחות</h3></div>
+          <div class="tableWrap card">
+            <table>
+              <thead>
+                <tr>
+                  <th>שם</th>
+                  <th>טלפון</th>
+                  <th>אימייל</th>
+                  <th>כמות תורים</th>
+                </tr>
+              </thead>
+              <tbody id="adminCustomers"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="businessPublicView" class="view">
+      <div id="publicHero" class="portalHero">
+        <div class="row" style="margin-bottom:14px">
+          <div class="logoCircle" id="publicLogo">MB</div>
+          <div>
+            <h2 id="publicBusinessName">Business Name</h2>
+            <p id="publicBusinessDescription">תיאור העסק</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid2" style="margin-top:14px">
+        <div class="panel">
+          <div class="head">
+            <h3>אזור לקוח של העסק</h3>
+            <span id="publicCustomerState" class="muted">לקוח לא מחובר</span>
+          </div>
+
+          <div class="tabs">
+            <button class="tab active" data-customer-tab="login">כניסה</button>
+            <button class="tab" data-customer-tab="register">הרשמה</button>
+          </div>
+
+          <div id="publicAuthMessage" class="notice hidden"></div>
+
+          <div id="customerLoginTab">
+            <div class="formGrid">
+              <div class="field">
+                <label>טלפון</label>
+                <input id="customerLoginPhone" placeholder="050-0000000" />
+              </div>
+              <div class="field">
+                <label>סיסמה</label>
+                <input id="customerLoginPassword" type="password" placeholder="******" />
+              </div>
+            </div>
+            <div class="row" style="margin-top:12px">
+              <button class="btn" id="customerLoginBtn">התחבר</button>
+            </div>
+          </div>
+
+          <div id="customerRegisterTab" class="hidden">
+            <div class="formGrid">
+              <div class="field">
+                <label>שם מלא</label>
+                <input id="customerRegisterName" placeholder="נופר כהן" />
+              </div>
+              <div class="field">
+                <label>טלפון</label>
+                <input id="customerRegisterPhone" placeholder="050-0000000" />
+              </div>
+              <div class="field">
+                <label>אימייל</label>
+                <input id="customerRegisterEmail" placeholder="name@example.com" />
+              </div>
+              <div class="field">
+                <label>סיסמה</label>
+                <input id="customerRegisterPassword" type="password" placeholder="בחר סיסמה" />
+              </div>
+            </div>
+            <div class="row" style="margin-top:12px">
+              <button class="btn" id="customerRegisterBtn">צור חשבון</button>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="head"><h3>התורים שלי בעסק הזה</h3></div>
+          <div id="customerAppointments" class="cards"></div>
+        </div>
+
+        <div class="panel">
+          <div class="head">
+            <h3>קביעת תור</h3>
+            <span class="muted">רק לעסק הזה</span>
+          </div>
+
+          <div class="head"><h3>1. שירות</h3></div>
+          <div id="publicServices" class="cards"></div>
+
+          <div class="divider"></div>
+
+          <div class="head"><h3>2. איש צוות</h3></div>
+          <div id="publicEmployees" class="cards"></div>
+
+          <div class="divider"></div>
+
+          <div class="head"><h3>3. יום ושעה</h3></div>
+          <div id="publicDays" class="days"></div>
+          <div id="publicSlots" class="slots" style="margin-top:10px"></div>
+
+          <div class="divider"></div>
+
+          <div class="formGrid">
+            <div class="field span2">
+              <label>הערה להזמנה</label>
+              <textarea id="bookingNotes" placeholder="הערה, בקשה מיוחדת, העדפה מסוימת..."></textarea>
+            </div>
+          </div>
+
+          <div class="stickyBox">
+            <div class="card" style="padding:12px">
+              <div class="between">
+                <div>
+                  <div class="title">סיכום הזמנה</div>
+                  <div id="bookingSummary" class="sub">יש לבחור שירות, איש צוות, יום ושעה.</div>
+                </div>
+                <div id="bookingPrice" class="title">₪0</div>
+              </div>
+            </div>
+            <div class="row" style="margin-top:10px">
+              <button class="btn" id="bookAppointmentBtn">אשר תור</button>
+              <button class="btnGhost" id="resetBookingBtn">איפוס בחירה</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div id="ownerModalWrap" class="modalWrap">
+    <div class="modal">
+      <div class="head">
+        <h3>כניסה / הרשמת עסק</h3>
+        <button class="btnGhost" id="closeOwnerModalBtn">סגור</button>
+      </div>
+
+      <div class="tabs">
+        <button class="tab active" data-owner-tab="login">כניסת עסק</button>
+        <button class="tab" data-owner-tab="register">הרשמת עסק</button>
+      </div>
+
+      <div id="ownerAuthMessage" class="notice hidden"></div>
+
+      <div id="ownerLoginTab">
+        <div class="formGrid">
+          <div class="field">
+            <label>אימייל</label>
+            <input id="ownerLoginEmail" placeholder="owner@business.com" />
+          </div>
+          <div class="field">
+            <label>סיסמה</label>
+            <input id="ownerLoginPassword" type="password" placeholder="******" />
+          </div>
+        </div>
+        <div class="row" style="margin-top:12px">
+          <button class="btn" id="ownerLoginBtn">התחבר</button>
+        </div>
+      </div>
+
+      <div id="ownerRegisterTab" class="hidden">
+        <div class="formGrid">
+          <div class="field">
+            <label>שם בעל העסק</label>
+            <input id="ownerName" placeholder="מורן לוי" />
+          </div>
+          <div class="field">
+            <label>אימייל בעל העסק</label>
+            <input id="ownerEmail" placeholder="moran@business.com" />
+          </div>
+          <div class="field">
+            <label>סיסמה</label>
+            <input id="ownerPassword" type="password" placeholder="בחר סיסמה" />
+          </div>
+          <div class="field">
+            <label>שם העסק</label>
+            <input id="businessName" placeholder="Moran Nails" />
+          </div>
+          <div class="field">
+            <label>Slug</label>
+            <input id="businessSlug" placeholder="moran-nails" />
+          </div>
+          <div class="field">
+            <label>תחום</label>
+            <select id="businessCategory">
+              <option>Nails</option>
+              <option>Hair</option>
+              <option>Beauty</option>
+              <option>Clinic</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>צבע ראשי</label>
+            <input id="businessColor1" type="color" value="#111827" />
+          </div>
+          <div class="field">
+            <label>צבע משני</label>
+            <input id="businessColor2" type="color" value="#374151" />
+          </div>
+          <div class="field span2">
+            <label>תיאור העסק</label>
+            <textarea id="businessDescription" placeholder="תיאור קצר שיופיע בעמוד הלקוחות של העסק"></textarea>
+          </div>
+          <div class="field">
+            <label>תוכנית</label>
+            <select id="businessPlan">
+              <option>Starter</option>
+              <option>Pro</option>
+              <option>Scale</option>
+            </select>
+          </div>
+        </div>
+        <div class="row" style="margin-top:12px">
+          <button class="btn" id="ownerRegisterBtn">צור עסק</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="quickModalWrap" class="modalWrap">
+    <div class="modal">
+      <div class="head">
+        <h3 id="quickModalTitle">חלון מהיר</h3>
+        <button class="btnGhost" id="closeQuickModalBtn">סגור</button>
+      </div>
+      <div id="quickModalBody"></div>
+    </div>
+  </div>
+
+  <script>
+    const STORAGE_KEYS = {
+      businesses: "minislotify_businesses_v2",
+      ownerSession: "minislotify_owner_session_v2",
+      customerSession: "minislotify_customer_session_v2"
+    };
+
+    const DEFAULT_DAYS = [
+      { id: 1, label: "א׳", date: "10 מרץ" },
+      { id: 2, label: "ב׳", date: "11 מרץ" },
+      { id: 3, label: "ג׳", date: "12 מרץ" },
+      { id: 4, label: "ד׳", date: "13 מרץ" },
+      { id: 5, label: "ה׳", date: "14 מרץ" },
+      { id: 6, label: "ו׳", date: "15 מרץ" },
+      { id: 7, label: "ש׳", date: "16 מרץ" }
+    ];
+
+    const DEFAULT_SLOTS = ["09:00","09:30","10:00","10:30","11:30","12:00","13:30","15:00"];
+
+    const state = {
+      currentView: "platform",
+      ownerSession: null,
+      customerSession: null,
+      activeBusinessId: null,
+      booking: { serviceId:null, employeeId:null, day:null, slot:null }
+    };
+
+    const $ = (id) => document.getElementById(id);
+    const uid = (prefix="id") => `${prefix}_${Date.now()}_${Math.random().toString(36).slice(2,8)}`;
+    const normalize = (v="") => v.trim().toLowerCase();
+    const phoneNorm = (v="") => v.replace(/[^\d]/g, "");
+    const money = (amount) => `₪${amount}`;
+
+    function getBusinesses(){ return JSON.parse(localStorage.getItem(STORAGE_KEYS.businesses) || "[]"); }
+    function setBusinesses(data){ localStorage.setItem(STORAGE_KEYS.businesses, JSON.stringify(data)); }
+    function getOwnerSession(){ return JSON.parse(localStorage.getItem(STORAGE_KEYS.ownerSession) || "null"); }
+    function setOwnerSession(data){ localStorage.setItem(STORAGE_KEYS.ownerSession, JSON.stringify(data)); }
+    function clearOwnerSession(){ localStorage.removeItem(STORAGE_KEYS.ownerSession); }
+    function getCustomerSession(){ return JSON.parse(localStorage.getItem(STORAGE_KEYS.customerSession) || "null"); }
+    function setCustomerSession(data){ localStorage.setItem(STORAGE_KEYS.customerSession, JSON.stringify(data)); }
+    function clearCustomerSession(){ localStorage.removeItem(STORAGE_KEYS.customerSession); }
+
+    function findBusiness(id){ return getBusinesses().find(b => b.id === id); }
+
+    function updateBusiness(id, updater){
+      const businesses = getBusinesses();
+      const index = businesses.findIndex(b => b.id === id);
+      if(index === -1) return;
+      updater(businesses[index]);
+      setBusinesses(businesses);
+    }
+
+    function seedDemo(){
+      if(getBusinesses().length) return;
+      const businessId = uid("biz");
+      const customerId = uid("cus");
+      const serviceId = uid("srv");
+      const employeeId = uid("emp");
+
+      const demo = {
+        id: businessId,
+        name: "Moran Nails",
+        slug: "moran-nails",
+        category: "Nails",
+        color1: "#7c3aed",
+        color2: "#ec4899",
+        description: "סטודיו נעים ומדויק לטיפולי ציפורניים, לק ג׳ל ובנייה.",
+        plan: "Pro",
+        owner: { name: "מורן", email: "moran@business.com", password: "123456" },
+        employees: [
+          { id: employeeId, name: "מורן", role: "Nail Artist" }
+        ],
+        services: [
+          { id: serviceId, name: "לק ג׳ל", duration: 60, price: 140, description: "כולל ניקוי, עיצוב ומריחה" },
+          { id: uid("srv"), name: "בנייה", duration: 90, price: 220, description: "בנייה מלאה וחיזוק" }
+        ],
+        customers: [
+          { id: customerId, name: "נופר", phone: "0501111111", email: "n@example.com", password: "123456" }
+        ],
+        appointments: [
+          {
+            id: uid("appt"),
+            customerId,
+            customerName: "נופר",
+            serviceId,
+            serviceName: "לק ג׳ל",
+            employeeId,
+            employeeName: "מורן",
+            dayId: 2,
+            dateLabel: "11 מרץ",
+            slot: "10:00",
+            notes: "",
+            status: "נקבע",
+            createdAt: Date.now()
+          }
+        ]
+      };
+      setBusinesses([demo]);
+    }
+
+    function showView(view){
+      state.currentView = view;
+      document.querySelectorAll(".view").forEach(v => v.classList.remove("active"));
+      $(view + "View").classList.add("active");
+      refreshTopBar();
+      if(view === "platform") renderPlatform();
+      if(view === "businessAdmin") renderBusinessAdmin();
+      if(view === "businessPublic") renderBusinessPublic();
+      window.scrollTo({top:0, behavior:"smooth"});
+    }
+
+    function refreshTopBar(){
+      const owner = state.ownerSession;
+      const customer = state.customerSession;
+      $("goBusinessAdminBtn").classList.toggle("hidden", !owner);
+      $("goBusinessPublicBtn").classList.toggle("hidden", !state.activeBusinessId);
+      $("logoutBtn").classList.toggle("hidden", !owner && !customer);
+      $("openOwnerAuthBtn").classList.toggle("hidden", !!owner);
+
+      if(owner){
+        const b = findBusiness(owner.businessId);
+        $("topStatus").textContent = `עסק: ${b?.name || "לא ידוע"}`;
+      } else if(customer){
+        const b = findBusiness(customer.businessId);
+        $("topStatus").textContent = `לקוח: ${customer.name} / ${b?.name || ""}`;
+      } else {
+        $("topStatus").textContent = "Super Admin";
+      }
+    }
+
+    function renderPlatform(){
+      const businesses = getBusinesses();
+      const totalCustomers = businesses.reduce((sum,b)=>sum+b.customers.length,0);
+      const totalAppointments = businesses.reduce((sum,b)=>sum+b.appointments.length,0);
+
+      $("platformStats").innerHTML = `
+        <div class="stat"><strong>${businesses.length}</strong><span>עסקים</span></div>
+        <div class="stat"><strong>${totalCustomers}</strong><span>לקוחות</span></div>
+        <div class="stat"><strong>${totalAppointments}</strong><span>תורים</span></div>
+        <div class="stat"><strong>${businesses.filter(b=>b.plan==="Pro"||b.plan==="Scale").length}</strong><span>עסקי פרו/סקייל</span></div>
+      `;
+
+      $("businessCards").innerHTML = businesses.map(b => `
+        <div class="item">
+          <div class="between">
+            <h4 class="title">${b.name}</h4>
+            <span class="tag">${b.plan}</span>
+          </div>
+          <p class="sub">${b.category} · slug: ${b.slug}</p>
+          <p class="sub">${b.customers.length} לקוחות · ${b.appointments.length} תורים</p>
+          <div class="row" style="margin-top:12px">
+            <button class="btnGhost" data-open-admin="${b.id}">דשבורד עסק</button>
+            <button class="btn" data-open-public="${b.id}">עמוד העסק</button>
+          </div>
+        </div>
+      `).join("") || `<div class="notice">אין עדיין עסקים במערכת.</div>`;
+
+      document.querySelectorAll("[data-open-admin]").forEach(btn => {
+        btn.onclick = () => {
+          const business = findBusiness(btn.dataset.openAdmin);
+          openOwnerModal("login");
+          $("ownerLoginEmail").value = business.owner.email;
+          $("ownerLoginPassword").focus();
+        };
+      });
+
+      document.querySelectorAll("[data-open-public]").forEach(btn => {
+        state.activeBusinessId = btn.dataset.openPublic;
+        state.booking = { serviceId:null, employeeId:null, day:null, slot:null };
+        showView("businessPublic");
+      });
+    }
+
+    function renderBusinessAdmin(){
+      const owner = state.ownerSession;
+      if(!owner){ showView("platform"); return; }
+
+      const business = findBusiness(owner.businessId);
+      if(!business){ logoutAll(); return; }
+
+      state.activeBusinessId = business.id;
+      $("adminPlanTag").textContent = business.plan;
+      $("adminBusinessCard").innerHTML = `
+        <div class="between">
+          <div>
+            <h4 class="title">${business.name}</h4>
+            <p class="sub">${business.category} · ${business.slug}</p>
+          </div>
+          <span class="tag" style="background:${business.color1}22;color:${business.color1}">מותג</span>
+        </div>
+        <p class="sub" style="margin-top:10px">${business.description || "ללא תיאור"}</p>
+      `;
+      $("businessPublicUrl").textContent = `/business/${business.slug}`;
+
+      $("adminServices").innerHTML = business.services.map(s => `
+        <div class="item">
+          <div class="between">
+            <h4 class="title">${s.name}</h4>
+            <span class="tag">${money(s.price)}</span>
+          </div>
+          <p class="sub">${s.duration} דק׳</p>
+          <p class="sub">${s.description || ""}</p>
+        </div>
+      `).join("") || `<div class="notice">אין שירותים עדיין.</div>`;
+
+      $("adminEmployees").innerHTML = business.employees.map(e => `
+        <div class="item">
+          <div class="between">
+            <h4 class="title">${e.name}</h4>
+            <span class="tag">${e.role}</span>
+          </div>
+        </div>
+      `).join("") || `<div class="notice">אין עובדים עדיין.</div>`;
+
+      $("adminStats").innerHTML = `
+        <div class="stat"><strong>${business.services.length}</strong><span>שירותים</span></div>
+        <div class="stat"><strong>${business.employees.length}</strong><span>עובדים</span></div>
+        <div class="stat"><strong>${business.customers.length}</strong><span>לקוחות</span></div>
+        <div class="stat"><strong>${business.appointments.length}</strong><span>תורים</span></div>
+      `;
+
+      $("adminAppointments").innerHTML = business.appointments.map(a => `
+        <tr>
+          <td>${a.customerName}</td>
+          <td>${a.serviceName}</td>
+          <td>${a.employeeName}</td>
+          <td>${a.dateLabel} · ${a.slot}</td>
+          <td><span class="tag ${a.status==="בוטל"?"danger":"ok"}">${a.status}</span></td>
+        </tr>
+      `).join("") || `<tr><td colspan="5">אין תורים עדיין.</td></tr>`;
+
+      $("adminCustomers").innerHTML = business.customers.map(c => `
+        <tr>
+          <td>${c.name}</td>
+          <td>${c.phone}</td>
+          <td>${c.email || "-"}</td>
+          <td>${business.appointments.filter(a => a.customerId === c.id).length}</td>
+        </tr>
+      `).join("") || `<tr><td colspan="4">אין לקוחות עדיין.</td></tr>`;
+    }
+
+    function renderBusinessPublic(){
+      const business = findBusiness(state.activeBusinessId);
+      if(!business){ showView("platform"); return; }
+
+      document.documentElement.style.setProperty("--portal1", business.color1 || "#111827");
+      document.documentElement.style.setProperty("--portal2", business.color2 || "#374151");
+
+      $("publicLogo").textContent = business.name.split(" ").map(x => x[0]).slice(0,2).join("").toUpperCase();
+      $("publicBusinessName").textContent = business.name;
+      $("publicBusinessDescription").textContent = business.description || "עמוד הזמנות ללקוחות העסק";
+      renderPublicCustomerArea(business);
+      renderPublicBookingArea(business);
+    }
+
+    function renderPublicCustomerArea(business){
+      const customerSession = state.customerSession;
+      const active = customerSession && customerSession.businessId === business.id;
+      $("publicCustomerState").textContent = active ? customerSession.name : "לקוח לא מחובר";
+
+      const rows = active
+        ? business.appointments.filter(a => a.customerId === customerSession.customerId).sort((a,b)=>b.createdAt-a.createdAt)
+        : [];
+
+      $("customerAppointments").innerHTML = active
+        ? (rows.length ? rows.map(a => `
+            <div class="item">
+              <div class="between">
+                <h4 class="title">${a.serviceName}</h4>
+                <span class="tag ${a.status==="בוטל"?"danger":"ok"}">${a.status}</span>
+              </div>
+              <p class="sub">${a.employeeName} · ${a.dateLabel} · ${a.slot}</p>
+              <div class="row" style="margin-top:10px">
+                <button class="btnDanger" data-cancel-appt="${a.id}">בטל תור</button>
+              </div>
+            </div>
+          `).join("") : `<div class="notice">אין עדיין תורים.</div>`)
+        : `<div class="notice">יש להתחבר כלקוח של העסק הזה כדי לראות תורים.</div>`;
+
+      document.querySelectorAll("[data-cancel-appt]").forEach(btn => {
+        btn.onclick = () => {
+          updateBusiness(business.id, b => {
+            b.appointments = b.appointments.map(a => a.id === btn.dataset.cancelAppt ? { ...a, status: "בוטל" } : a);
+          });
+          renderBusinessPublic();
+          if(state.ownerSession && state.ownerSession.businessId === business.id) renderBusinessAdmin();
+        };
+      });
+    }
+
+    function renderPublicBookingArea(business){
+      const booking = state.booking;
+
+      $("publicServices").innerHTML = business.services.map(s => `
+        <div class="item selectable ${booking.serviceId===s.id ? "selected":""}" data-service="${s.id}">
+          <div class="between">
+            <h4 class="title">${s.name}</h4>
+            <span class="tag">${money(s.price)}</span>
+          </div>
+          <p class="sub">${s.duration} דק׳</p>
+          <p class="sub">${s.description || ""}</p>
+        </div>
+      `).join("") || `<div class="notice">אין שירותים זמינים.</div>`;
+
+      $("publicEmployees").innerHTML = business.employees.map(e => `
+        <div class="item selectable ${booking.employeeId===e.id ? "selected":""}" data-employee="${e.id}">
+          <div class="between">
+            <h4 class="title">${e.name}</h4>
+            <span class="tag">${e.role}</span>
+          </div>
+        </div>
+      `).join("") || `<div class="notice">אין עובדים זמינים.</div>`;
+
+      $("publicDays").innerHTML = DEFAULT_DAYS.map(d => `
+        <div class="day ${booking.day?.id===d.id ? "selected":""}" data-day="${d.id}">
+          <small>${d.label}</small>
+          <strong>${d.date}</strong>
+        </div>
+      `).join("");
+
+      const busySlots = business.appointments
+        .filter(a => a.status !== "בוטל" && booking.employeeId && a.employeeId === booking.employeeId && booking.day && a.dayId === booking.day.id)
+        .map(a => a.slot);
+
+      $("publicSlots").innerHTML = DEFAULT_SLOTS.map(slot => {
+        const busy = busySlots.includes(slot);
+        return `<div class="slot ${booking.slot===slot ? "selected":""} ${busy ? "hidden":""}" data-slot="${slot}">${slot}</div>`;
+      }).join("") + (busySlots.length === DEFAULT_SLOTS.length ? `<div class="notice warn">אין שעות פנויות לעובד הזה ביום שנבחר.</div>` : "");
+
+      document.querySelectorAll("[data-service]").forEach(btn => btn.onclick = () => {
+        booking.serviceId = btn.dataset.service;
+        updateBookingSummary(business);
+        renderPublicBookingArea(business);
+      });
+      document.querySelectorAll("[data-employee]").forEach(btn => btn.onclick = () => {
+        booking.employeeId = btn.dataset.employee;
+        booking.slot = null;
+        updateBookingSummary(business);
+        renderPublicBookingArea(business);
+      });
+      document.querySelectorAll("[data-day]").forEach(btn => btn.onclick = () => {
+        booking.day = DEFAULT_DAYS.find(d => String(d.id) === btn.dataset.day);
+        booking.slot = null;
+        updateBookingSummary(business);
+        renderPublicBookingArea(business);
+      });
+      document.querySelectorAll("[data-slot]").forEach(btn => btn.onclick = () => {
+        booking.slot = btn.dataset.slot;
+        updateBookingSummary(business);
+        renderPublicBookingArea(business);
+      });
+
+      updateBookingSummary(business);
+    }
+
+    function updateBookingSummary(business){
+      const booking = state.booking;
+      const service = business.services.find(s => s.id === booking.serviceId);
+      const employee = business.employees.find(e => e.id === booking.employeeId);
+
+      const parts = [];
+      if(service) parts.push(service.name);
+      if(employee) parts.push(employee.name);
+      if(booking.day && booking.slot) parts.push(`${booking.day.date} · ${booking.slot}`);
+
+      $("bookingSummary").textContent = parts.length ? parts.join(" | ") : "יש לבחור שירות, איש צוות, יום ושעה.";
+      $("bookingPrice").textContent = service ? money(service.price) : money(0);
+    }
+
+    function setOwnerMessage(text, ok=false){
+      const el = $("ownerAuthMessage");
+      if(!text){ el.className = "notice hidden"; el.textContent = ""; return; }
+      el.className = ok ? "notice ok" : "notice";
+      el.textContent = text;
+    }
+
+    function setPublicAuthMessage(text, ok=false){
+      const el = $("publicAuthMessage");
+      if(!text){ el.className = "notice hidden"; el.textContent = ""; return; }
+      el.className = ok ? "notice ok" : "notice";
+      el.textContent = text;
+    }
+
+    function openOwnerModal(tab="login"){
+      $("ownerModalWrap").classList.add("open");
+      switchOwnerTab(tab);
+      setOwnerMessage("");
+    }
+    function closeOwnerModal(){ $("ownerModalWrap").classList.remove("open"); }
+    function openQuickModal(title, html){
+      $("quickModalTitle").textContent = title;
+      $("quickModalBody").innerHTML = html;
+      $("quickModalWrap").classList.add("open");
+    }
+    function closeQuickModal(){ $("quickModalWrap").classList.remove("open"); }
+
+    function switchOwnerTab(tab){
+      document.querySelectorAll("[data-owner-tab]").forEach(btn => btn.classList.toggle("active", btn.dataset.ownerTab === tab));
+      $("ownerLoginTab").classList.toggle("hidden", tab !== "login");
+      $("ownerRegisterTab").classList.toggle("hidden", tab !== "register");
+    }
+
+    function switchCustomerTab(tab){
+      document.querySelectorAll("[data-customer-tab]").forEach(btn => btn.classList.toggle("active", btn.dataset.customerTab === tab));
+      $("customerLoginTab").classList.toggle("hidden", tab !== "login");
+      $("customerRegisterTab").classList.toggle("hidden", tab !== "register");
+    }
+
+    function registerBusiness(){
+      const ownerName = $("ownerName").value.trim();
+      const ownerEmail = normalize($("ownerEmail").value);
+      const ownerPassword = $("ownerPassword").value.trim();
+      const name = $("businessName").value.trim();
+      const slug = normalize($("businessSlug").value);
+      const category = $("businessCategory").value;
+      const color1 = $("businessColor1").value;
+      const color2 = $("businessColor2").value;
+      const description = $("businessDescription").value.trim();
+      const plan = $("businessPlan").value;
+
+      if(!ownerName || !ownerEmail || !ownerPassword || !name || !slug){
+        setOwnerMessage("יש למלא את כל שדות החובה.");
+        return;
+      }
+
+      const businesses = getBusinesses();
+      if(businesses.some(b => normalize(b.owner.email) === ownerEmail)){
+        setOwnerMessage("כבר קיים עסק עם האימייל הזה.");
+        return;
+      }
+      if(businesses.some(b => normalize(b.slug) === slug)){
+        setOwnerMessage("ה-slug תפוס.");
+        return;
+      }
+
+      const business = {
+        id: uid("biz"),
+        name, slug, category, color1, color2, description, plan,
+        owner: { name: ownerName, email: ownerEmail, password: ownerPassword },
+        employees: [],
+        services: [],
+        customers: [],
+        appointments: []
+      };
+
+      setBusinesses([...businesses, business]);
+      state.ownerSession = { businessId: business.id, email: ownerEmail };
+      setOwnerSession(state.ownerSession);
+      state.activeBusinessId = business.id;
+      closeOwnerModal();
+      showView("businessAdmin");
+    }
+
+    function loginBusiness(){
+      const email = normalize($("ownerLoginEmail").value);
+      const password = $("ownerLoginPassword").value.trim();
+
+      const business = getBusinesses().find(b => normalize(b.owner.email) === email && b.owner.password === password);
+      if(!business){
+        setOwnerMessage("פרטי הכניסה אינם נכונים.");
+        return;
+      }
+
+      state.ownerSession = { businessId: business.id, email };
+      setOwnerSession(state.ownerSession);
+      state.activeBusinessId = business.id;
+      closeOwnerModal();
+      showView("businessAdmin");
+    }
+
+    function registerCustomer(){
+      const business = findBusiness(state.activeBusinessId);
+      const name = $("customerRegisterName").value.trim();
+      const phone = $("customerRegisterPhone").value.trim();
+      const email = $("customerRegisterEmail").value.trim();
+      const password = $("customerRegisterPassword").value.trim();
+
+      if(!name || !phone || !password){
+        setPublicAuthMessage("יש למלא שם, טלפון וסיסמה.");
+        return;
+      }
+
+      if(business.customers.some(c => phoneNorm(c.phone) === phoneNorm(phone))){
+        setPublicAuthMessage("כבר קיים לקוח עם הטלפון הזה בעסק.");
+        return;
+      }
+
+      const customer = { id: uid("cus"), name, phone, email, password };
+      updateBusiness(business.id, b => b.customers.push(customer));
+      state.customerSession = { businessId: business.id, customerId: customer.id, name: customer.name };
+      setCustomerSession(state.customerSession);
+      setPublicAuthMessage("החשבון נוצר בהצלחה.", true);
+      renderBusinessPublic();
+      if(state.ownerSession && state.ownerSession.businessId === business.id) renderBusinessAdmin();
+    }
+
+    function loginCustomer(){
+      const business = findBusiness(state.activeBusinessId);
+      const phone = phoneNorm($("customerLoginPhone").value);
+      const password = $("customerLoginPassword").value.trim();
+
+      const customer = business.customers.find(c => phoneNorm(c.phone) === phone && c.password === password);
+      if(!customer){
+        setPublicAuthMessage("פרטי הכניסה של הלקוח אינם נכונים.");
+        return;
+      }
+
+      state.customerSession = { businessId: business.id, customerId: customer.id, name: customer.name };
+      setCustomerSession(state.customerSession);
+      setPublicAuthMessage("התחברת בהצלחה.", true);
+      renderBusinessPublic();
+    }
+
+    function bookAppointment(){
+      const business = findBusiness(state.activeBusinessId);
+      const session = state.customerSession;
+      if(!session || session.businessId !== business.id){
+        setPublicAuthMessage("יש להתחבר או להירשם כלקוח של העסק הזה.", false);
+        return;
+      }
+
+      const booking = state.booking;
+      const service = business.services.find(s => s.id === booking.serviceId);
+      const employee = business.employees.find(e => e.id === booking.employeeId);
+      const customer = business.customers.find(c => c.id === session.customerId);
+
+      if(!service || !employee || !booking.day || !booking.slot){
+        alert("יש להשלים שירות, עובד, יום ושעה.");
+        return;
+      }
+
+      const alreadyTaken = business.appointments.some(a =>
+        a.status !== "בוטל" &&
+        a.employeeId === employee.id &&
+        a.dayId === booking.day.id &&
+        a.slot === booking.slot
+      );
+      if(alreadyTaken){
+        alert("השעה הזו כבר תפוסה לעובד הנבחר.");
+        renderBusinessPublic();
+        return;
+      }
+
+      updateBusiness(business.id, b => {
+        b.appointments.push({
+          id: uid("appt"),
+          customerId: customer.id,
+          customerName: customer.name,
+          serviceId: service.id,
+          serviceName: service.name,
+          employeeId: employee.id,
+          employeeName: employee.name,
+          dayId: booking.day.id,
+          dateLabel: booking.day.date,
+          slot: booking.slot,
+          notes: $("bookingNotes").value.trim(),
+          status: "נקבע",
+          createdAt: Date.now()
+        });
+      });
+
+      state.booking = { serviceId:null, employeeId:null, day:null, slot:null };
+      $("bookingNotes").value = "";
+      renderBusinessPublic();
+      if(state.ownerSession && state.ownerSession.businessId === business.id) renderBusinessAdmin();
+      alert("התור נקבע בהצלחה.");
+    }
+
+    function openAddServiceModal(){
+      openQuickModal("הוספת שירות", `
+        <div class="formGrid">
+          <div class="field">
+            <label>שם שירות</label>
+            <input id="newServiceName" placeholder="לק ג׳ל" />
+          </div>
+          <div class="field">
+            <label>מחיר</label>
+            <input id="newServicePrice" type="number" placeholder="140" />
+          </div>
+          <div class="field">
+            <label>משך בדקות</label>
+            <input id="newServiceDuration" type="number" placeholder="60" />
+          </div>
+          <div class="field span2">
+            <label>תיאור</label>
+            <textarea id="newServiceDescription" placeholder="תיאור קצר של השירות"></textarea>
+          </div>
+        </div>
+        <div class="row" style="margin-top:12px">
+          <button class="btn" id="saveServiceBtn">שמור שירות</button>
+        </div>
+      `);
+
+      $("saveServiceBtn").onclick = () => {
+        const business = findBusiness(state.ownerSession.businessId);
+        const name = $("newServiceName").value.trim();
+        const price = Number($("newServicePrice").value);
+        const duration = Number($("newServiceDuration").value);
+        const description = $("newServiceDescription").value.trim();
+
+        if(!name || !price || !duration) return;
+
+        updateBusiness(business.id, b => {
+          b.services.push({ id: uid("srv"), name, price, duration, description });
+        });
+
+        closeQuickModal();
+        renderBusinessAdmin();
+        if(state.activeBusinessId === business.id) renderBusinessPublic();
+      };
+    }
+
+    function openAddEmployeeModal(){
+      openQuickModal("הוספת עובד", `
+        <div class="formGrid">
+          <div class="field">
+            <label>שם עובד</label>
+            <input id="newEmployeeName" placeholder="נתנאלה" />
+          </div>
+          <div class="field">
+            <label>תפקיד</label>
+            <input id="newEmployeeRole" placeholder="Hair Stylist" />
+          </div>
+        </div>
+        <div class="row" style="margin-top:12px">
+          <button class="btn" id="saveEmployeeBtn">שמור עובד</button>
+        </div>
+      `);
+
+      $("saveEmployeeBtn").onclick = () => {
+        const business = findBusiness(state.ownerSession.businessId);
+        const name = $("newEmployeeName").value.trim();
+        const role = $("newEmployeeRole").value.trim();
+        if(!name || !role) return;
+
+        updateBusiness(business.id, b => {
+          b.employees.push({ id: uid("emp"), name, role });
+        });
+
+        closeQuickModal();
+        renderBusinessAdmin();
+        if(state.activeBusinessId === business.id) renderBusinessPublic();
+      };
+    }
+
+    function copyBusinessUrl(){
+      const business = findBusiness(state.ownerSession.businessId);
+      const text = `/business/${business.slug}`;
+      navigator.clipboard?.writeText(text);
+      alert("הקישור הועתק");
+    }
+
+    function logoutAll(){
+      state.ownerSession = null;
+      state.customerSession = null;
+      clearOwnerSession();
+      clearCustomerSession();
+      showView("platform");
+    }
+
+    function bindEvents(){
+      $("goPlatformBtn").onclick = () => showView("platform");
+      $("goBusinessAdminBtn").onclick = () => showView("businessAdmin");
+      $("goBusinessPublicBtn").onclick = () => showView("businessPublic");
+      $("openOwnerAuthBtn").onclick = () => openOwnerModal("login");
+      $("logoutBtn").onclick = logoutAll;
+      $("createBusinessBtn").onclick = () => openOwnerModal("register");
+
+      $("closeOwnerModalBtn").onclick = closeOwnerModal;
+      $("closeQuickModalBtn").onclick = closeQuickModal;
+
+      document.querySelectorAll("[data-owner-tab]").forEach(btn => {
+        btn.onclick = () => switchOwnerTab(btn.dataset.ownerTab);
+      });
+      document.querySelectorAll("[data-customer-tab]").forEach(btn => {
+        btn.onclick = () => switchCustomerTab(btn.dataset.customerTab);
+      });
+
+      $("ownerRegisterBtn").onclick = registerBusiness;
+      $("ownerLoginBtn").onclick = loginBusiness;
+      $("customerRegisterBtn").onclick = registerCustomer;
+      $("customerLoginBtn").onclick = loginCustomer;
+      $("bookAppointmentBtn").onclick = bookAppointment;
+      $("resetBookingBtn").onclick = () => {
+        state.booking = { serviceId:null, employeeId:null, day:null, slot:null };
+        $("bookingNotes").value = "";
+        renderBusinessPublic();
+      };
+
+      $("addServiceBtn").onclick = openAddServiceModal;
+      $("addEmployeeBtn").onclick = openAddEmployeeModal;
+      $("copyBusinessUrlBtn").onclick = copyBusinessUrl;
+      $("openPublicFromAdminBtn").onclick = () => showView("businessPublic");
+
+      $("ownerModalWrap").addEventListener("click", e => {
+        if(e.target === $("ownerModalWrap")) closeOwnerModal();
+      });
+      $("quickModalWrap").addEventListener("click", e => {
+        if(e.target === $("quickModalWrap")) closeQuickModal();
+      });
+    }
+
+    function initSessions(){
+      state.ownerSession = getOwnerSession();
+      state.customerSession = getCustomerSession();
+      if(state.ownerSession) state.activeBusinessId = state.ownerSession.businessId;
+      else if(state.customerSession) state.activeBusinessId = state.customerSession.businessId;
+    }
+
+    function init(){
+      seedDemo();
+      initSessions();
+      bindEvents();
+      refreshTopBar();
+      renderPlatform();
+    }
+
+    init();
+  </script>
 </body>
 </html>
