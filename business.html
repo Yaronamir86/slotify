@@ -1,0 +1,69 @@
+<!DOCTYPE html><html lang="he" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Business</title><link rel="manifest" href="./manifest.json"><link rel="icon" href="./assets/icons/favicon.png" type="image/png"><style>
+:root{--bg:#f6f8fb;--panel:#fff;--text:#0f172a;--muted:#64748b;--line:#e2e8f0;--brand:#0f172a;--brand2:#334155;--accent:#7c3aed;--ok:#166534;--danger:#b91c1c;--shadow:0 18px 60px rgba(15,23,42,.08);--r:22px;--max:1200px}
+*{box-sizing:border-box}html,body{margin:0;padding:0}body{font-family:Arial,sans-serif;background:linear-gradient(180deg,#f8fafc,#eef2f7);color:var(--text)}
+button,input,select,textarea{font:inherit}button{cursor:pointer}a{text-decoration:none;color:inherit}
+.shell{width:min(var(--max),100%);margin:auto;padding:14px}.hidden{display:none!important}
+.topbar{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.85);backdrop-filter:blur(12px);border:1px solid var(--line);border-radius:20px;padding:12px;display:flex;align-items:center;justify-content:space-between;gap:12px;box-shadow:var(--shadow);margin-bottom:14px}
+.brand{display:flex;align-items:center;gap:12px}.brand img{width:42px;height:42px;border-radius:14px;object-fit:cover}.brand h1{margin:0;font-size:1rem}.brand p{margin:4px 0 0;color:var(--muted);font-size:.85rem}
+.actions{display:flex;gap:8px;flex-wrap:wrap}.btn,.btnGhost,.btnDanger,.pill{border:none;border-radius:14px;padding:11px 14px}.btn{background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff}.btnGhost,.pill{background:#fff;border:1px solid var(--line)}.btnDanger{background:#fff1f2;border:1px solid #fecdd3;color:var(--danger)}.pill{color:var(--muted);padding:8px 11px}
+.grid2,.cards,.stats,.formGrid,.days,.slots{display:grid;gap:14px;grid-template-columns:1fr}.panel,.card,.hero{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);padding:16px}.hero h1,.hero h2{margin:0 0 10px}.sub,.muted{color:var(--muted)}.sub{line-height:1.65}
+.head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}.field{display:flex;flex-direction:column;gap:7px}.field label{color:var(--muted);font-size:.9rem}.field input,.field select,.field textarea{width:100%;padding:12px 13px;border:1px solid var(--line);border-radius:14px;background:#fff}.field textarea{min-height:90px;resize:vertical}
+.item{background:#fff;border:1px solid var(--line);border-radius:18px;padding:14px}.selectable{cursor:pointer}.selected{outline:2px solid var(--brand)}.title{margin:0 0 8px}.row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.between{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.tag{display:inline-flex;align-items:center;border-radius:999px;padding:7px 10px;background:#f3f4f6;font-size:.82rem}.notice{background:#fff;border:1px solid var(--line);padding:12px 14px;border-radius:16px;color:var(--muted)}.notice.ok{background:#f0fdf4;border-color:#bbf7d0;color:var(--ok)}.notice.danger{background:#fef2f2;border-color:#fecaca;color:var(--danger)}
+.tableWrap{overflow:auto}table{width:100%;min-width:700px;border-collapse:collapse}th,td{padding:12px 10px;border-bottom:1px solid var(--line);text-align:right}
+.day,.slot{background:#fff;border:1px solid var(--line);border-radius:16px;padding:12px;text-align:center}.days{grid-template-columns:repeat(4,1fr)}.slots{grid-template-columns:repeat(2,1fr)}.sticky{position:sticky;bottom:10px;background:rgba(255,255,255,.92);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);padding:12px}
+@media (min-width:760px){.grid2{grid-template-columns:repeat(2,1fr)}.cards{grid-template-columns:repeat(2,1fr)}.stats{grid-template-columns:repeat(4,1fr)}.formGrid{grid-template-columns:repeat(2,1fr)}.days{grid-template-columns:repeat(7,1fr)}.slots{grid-template-columns:repeat(4,1fr)}}
+</style></head><body><div class="shell"><header class="topbar"><div class="brand"><img src="./assets/icons/logo.png"><div><h1>פורטל בעל עסק</h1><p id="bizTitle">ניהול העסק</p></div></div><div class="actions"><span id="me" class="pill">...</span><a href="admin.html" class="btnGhost">אדמין</a></div></header><section class="grid2"><div class="panel"><div class="head"><h3>הגדרות עסק</h3></div><div class="formGrid"><div class="field"><label>שעת התחלה</label><input id="startTime" type="time" value="09:00"></div><div class="field"><label>שעת סיום</label><input id="endTime" type="time" value="17:00"></div><div class="field"><label>מרווח בדקות</label><input id="interval" type="number" min="15" step="15" value="30"></div><div class="field"><label>קטגוריה</label><input id="bizCategory"></div></div><div class="row" style="margin-top:12px"><button id="saveSettingsBtn" class="btn">שמור הגדרות</button><a id="bookingLink" class="btnGhost" target="_blank" href="booking.html">פתח עמוד הזמנות</a></div></div><div class="panel"><div class="head"><h3>הוספת שירות</h3></div><div class="formGrid"><div class="field"><label>שם שירות</label><input id="serviceName"></div><div class="field"><label>מחיר</label><input id="servicePrice" type="number"></div><div class="field"><label>משך בדקות</label><input id="serviceDuration" type="number"></div><div class="field"><label>תיאור</label><input id="serviceDesc"></div></div><div class="row" style="margin-top:12px"><button id="addServiceBtn" class="btn">הוסף שירות</button></div></div></section><section class="grid2" style="margin-top:14px"><div class="panel"><div class="head"><h3>שירותים</h3></div><div id="services" class="cards"></div></div><div class="panel"><div class="head"><h3>עובדים</h3></div><div class="formGrid"><div class="field"><label>שם עובד</label><input id="employeeName"></div><div class="field"><label>תפקיד</label><input id="employeeRole"></div></div><div class="row" style="margin-top:12px"><button id="addEmployeeBtn" class="btn">הוסף עובד</button></div><div id="employees" class="cards" style="margin-top:14px"></div></div></section><section class="panel" style="margin-top:14px"><div class="head"><h3>הזמנות</h3></div><div class="tableWrap"><table><thead><tr><th>לקוח</th><th>טלפון</th><th>שירות</th><th>עובד</th><th>תאריך</th><th>שעה</th></tr></thead><tbody id="bookingsRows"></tbody></table></div></section></div><script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-auth.js";
+import { getFirestore, collection, addDoc, getDocs, query, where, doc, getDoc, setDoc, orderBy } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-firestore.js";
+const app = initializeApp({"apiKey":"AIzaSyDB_HEkwm97f7s7grMZ9yh15HrZywz5oiw","authDomain":"slotify-7bcb2.firebaseapp.com","projectId":"slotify-7bcb2","storageBucket":"slotify-7bcb2.firebasestorage.app","messagingSenderId":"709282957955","appId":"1:709282957955:web:c3f48cd81af74a7428e9b6","measurementId":"G-MR5TRPQRSF"}); const auth = getAuth(app); const db = getFirestore(app);
+let businessId = null, business = null;
+async function loadBusiness(uid) {
+ const q = query(collection(db,"businesses"), where("ownerUid","==",uid));
+ const snap = await getDocs(q);
+ if(snap.empty) return;
+ const d = snap.docs[0]; businessId = d.id; business = {id:d.id, ...d.data()};
+ document.getElementById("bizTitle").textContent = business.name || "ניהול העסק";
+ document.getElementById("bizCategory").value = business.category || "";
+ document.getElementById("startTime").value = business.availability?.start || "09:00";
+ document.getElementById("endTime").value = business.availability?.end || "17:00";
+ document.getElementById("interval").value = business.availability?.interval || 30;
+ document.getElementById("bookingLink").href = `booking.html?b=${encodeURIComponent(business.slug||"")}`;
+ await loadServices(); await loadEmployees(); await loadBookings();
+}
+async function loadServices() {
+ const snap = await getDocs(query(collection(db,"businesses",businessId,"services"), orderBy("name")));
+ document.getElementById("services").innerHTML = snap.docs.map(d=>{ const s=d.data(); return `<div class="item"><h4 class="title">${s.name||""}</h4><p class="sub">${s.description||""}</p><div class="row"><span class="tag">₪${s.price||0}</span><span class="tag">${s.duration||0} דק׳</span></div></div>`; }).join("") || `<div class="notice">אין שירותים עדיין.</div>`;
+}
+async function loadEmployees() {
+ const snap = await getDocs(query(collection(db,"businesses",businessId,"employees"), orderBy("name")));
+ document.getElementById("employees").innerHTML = snap.docs.map(d=>{ const e=d.data(); return `<div class="item"><h4 class="title">${e.name||""}</h4><p class="sub">${e.role||""}</p></div>`; }).join("") || `<div class="notice">אין עובדים עדיין.</div>`;
+}
+async function loadBookings() {
+ const snap = await getDocs(collection(db,"businesses",businessId,"bookings"));
+ const rows = snap.docs.map(d=>d.data()).sort((a,b)=>(a.dateKey||"").localeCompare(b.dateKey||"") || (a.slot||"").localeCompare(b.slot||""));
+ document.getElementById("bookingsRows").innerHTML = rows.map(b=>`<tr><td>${b.customerName||""}</td><td>${b.customerPhone||""}</td><td>${b.serviceName||""}</td><td>${b.employeeName||""}</td><td>${b.dateLabel||""}</td><td>${b.slot||""}</td></tr>`).join("") || `<tr><td colspan="6">אין הזמנות עדיין.</td></tr>`;
+}
+document.getElementById("saveSettingsBtn").onclick = async () => {
+ if(!businessId) return;
+ await setDoc(doc(db,"businesses",businessId), {...business, category:document.getElementById("bizCategory").value, availability:{start:document.getElementById("startTime").value,end:document.getElementById("endTime").value,interval:Number(document.getElementById("interval").value)}});
+ const snap = await getDoc(doc(db,"businesses",businessId)); business = {id:snap.id, ...snap.data()};
+ alert("ההגדרות נשמרו");
+};
+document.getElementById("addServiceBtn").onclick = async () => {
+ if(!businessId) return;
+ const name = document.getElementById("serviceName").value.trim(); if(!name) return;
+ await addDoc(collection(db,"businesses",businessId,"services"), {name, price:Number(document.getElementById("servicePrice").value||0), duration:Number(document.getElementById("serviceDuration").value||0), description:document.getElementById("serviceDesc").value.trim()});
+ ["serviceName","servicePrice","serviceDuration","serviceDesc"].forEach(id=>document.getElementById(id).value="");
+ await loadServices();
+};
+document.getElementById("addEmployeeBtn").onclick = async () => {
+ if(!businessId) return;
+ const name = document.getElementById("employeeName").value.trim(); if(!name) return;
+ await addDoc(collection(db,"businesses",businessId,"employees"), {name, role:document.getElementById("employeeRole").value.trim()});
+ ["employeeName","employeeRole"].forEach(id=>document.getElementById(id).value="");
+ await loadEmployees();
+};
+onAuthStateChanged(auth, async user => { document.getElementById("me").textContent = user ? (user.email||"מחובר") : "אורח"; if(user) await loadBusiness(user.uid); });
+</script></body></html>

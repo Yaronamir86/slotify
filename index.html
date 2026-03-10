@@ -1,0 +1,13 @@
+<!DOCTYPE html><html lang="he" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Slotify</title><link rel="manifest" href="./manifest.json"><link rel="icon" href="./assets/icons/favicon.png" type="image/png"></head><body><script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-auth.js";
+import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-firestore.js";
+const app = initializeApp({"apiKey":"AIzaSyDB_HEkwm97f7s7grMZ9yh15HrZywz5oiw","authDomain":"slotify-7bcb2.firebaseapp.com","projectId":"slotify-7bcb2","storageBucket":"slotify-7bcb2.firebasestorage.app","messagingSenderId":"709282957955","appId":"1:709282957955:web:c3f48cd81af74a7428e9b6","measurementId":"G-MR5TRPQRSF"});
+const auth = getAuth(app); const db = getFirestore(app);
+onAuthStateChanged(auth, async user => {
+ if(!user) return location.href="booking.html";
+ const s = await getDoc(doc(db,"users",user.uid));
+ const role = s.exists()?s.data().role:"customer";
+ location.href = role==="superadmin" ? "admin.html" : role==="owner" ? "business.html" : "booking.html";
+});
+</script></body></html>
