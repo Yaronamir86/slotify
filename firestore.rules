@@ -1,0 +1,40 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() { return request.auth != null; }
+    function businessDoc(businessId) { return get(/databases/$(database)/documents/businesses/$(businessId)); }
+    function isOwner(businessId) { return signedIn() && businessDoc(businessId).data.ownerUid == request.auth.uid; }
+    function isOwnUser(uid) { return signedIn() && request.auth.uid == uid; }
+
+    match /users/{uid} {
+      allow read, write: if isOwnUser(uid);
+    }
+
+    match /businesses/{businessId} {
+      allow read: if true;
+      allow create: if signedIn() && request.resource.data.ownerUid == request.auth.uid;
+      allow update, delete: if isOwner(businessId);
+
+      match /services/{serviceId} {
+        allow read: if true;
+        allow create, update, delete: if isOwner(businessId);
+      }
+
+      match /employees/{employeeId} {
+        allow read: if true;
+        allow create, update, delete: if isOwner(businessId);
+      }
+
+      match /settings/{docId} {
+        allow read: if true;
+        allow create, update, delete: if isOwner(businessId);
+      }
+
+      match /bookings/{bookingId} {
+        allow read: if isOwner(businessId) || (signedIn() && resource.data.customerUid == request.auth.uid);
+        allow create: if signedIn() && request.resource.data.customerUid == request.auth.uid;
+        allow update, delete: if isOwner(businessId) || (signedIn() && resource.data.customerUid == request.auth.uid);
+      }
+    }
+  }
+}
