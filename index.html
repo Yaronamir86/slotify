@@ -1,13 +1,37 @@
-<!DOCTYPE html><html lang="he" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Slotify</title><link rel="manifest" href="./manifest.json"><link rel="icon" href="./assets/icons/favicon.png" type="image/png"></head><body><script type="module">
+<!DOCTYPE html><html lang="he" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Slotify V14 | System Entry</title><link rel="manifest" href="./manifest.json"><link rel="icon" href="./assets/icons/favicon.png" type="image/png"><style>
+:root{--bg:#f6f8fb;--panel:#fff;--text:#0f172a;--muted:#64748b;--line:#e2e8f0;--brand:#0f172a;--brand2:#334155;--shadow:0 18px 60px rgba(15,23,42,.08);--r:24px;--max:880px}
+*{box-sizing:border-box}html,body{margin:0;padding:0}body{font-family:Arial,sans-serif;background:linear-gradient(180deg,#f8fafc,#eef2f7);color:var(--text);min-height:100vh;display:grid;place-items:center;padding:18px}a{text-decoration:none;color:inherit}.wrap{width:min(var(--max),100%)}.panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);padding:24px}.brand{display:flex;align-items:center;gap:14px;margin-bottom:16px}.brand img{width:52px;height:52px;border-radius:16px}.brand h1{margin:0;font-size:1.2rem}.brand p,.muted{margin:4px 0 0;color:var(--muted);line-height:1.7}.status{margin-top:18px;padding:14px 16px;border:1px solid var(--line);border-radius:18px;background:#fff}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}.btn,.btnGhost{border:none;border-radius:14px;padding:12px 16px;font:inherit;cursor:pointer}.btn{background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff}.btnGhost{background:#fff;border:1px solid var(--line)}.grid{display:grid;gap:14px;grid-template-columns:1fr;margin-top:18px}.card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:16px}.tag{display:inline-flex;align-items:center;border-radius:999px;padding:7px 10px;background:#f1f5f9;color:#334155;font-size:.82rem;margin-bottom:8px}.big{font-size:1.8rem;font-weight:700;margin:8px 0}@media (min-width:760px){.grid{grid-template-columns:repeat(3,1fr)}}
+</style></head><body><div class="wrap"><section class="panel"><div class="brand"><img src="./assets/icons/logo.png"><div><h1>Slotify V14</h1><p>כניסה חכמה לפלטפורמת ניהול יומנים והזמנת תורים</p></div></div><div id="status" class="status">טוען זיהוי משתמש ופורטל מתאים...</div><div class="actions"><a id="goAdmin" class="btn" href="admin.html">כניסה לדשבורד סופר אדמין</a><a id="goBooking" class="btnGhost" href="booking.html">עמוד הזמנה</a></div><div class="grid"><div class="card"><div class="tag">Super Admin</div><div class="big">שליטה מלאה</div><div class="muted">המסך הראשי שלך. מבט על כל הלקוחות העסקיים, סטטוסים, הזמנות וקישורי הזמנה.</div></div><div class="card"><div class="tag">Business Portal</div><div class="big">ניהול עסק</div><div class="muted">כל לקוח עסקי רואה רק את הנתונים והיומן של העסק שלו.</div></div><div class="card"><div class="tag">Customer Portal</div><div class="big">קביעת תור</div><div class="muted">לקוח קצה נכנס דרך קישור ייחודי של העסק ורואה רק זמינות רלוונטית.</div></div></div></section></div><script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-app.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-auth.js";
 import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-firestore.js";
-const app = initializeApp({"apiKey":"AIzaSyDB_HEkwm97f7s7grMZ9yh15HrZywz5oiw","authDomain":"slotify-7bcb2.firebaseapp.com","projectId":"slotify-7bcb2","storageBucket":"slotify-7bcb2.firebasestorage.app","messagingSenderId":"709282957955","appId":"1:709282957955:web:c3f48cd81af74a7428e9b6","measurementId":"G-MR5TRPQRSF"});
-const auth = getAuth(app); const db = getFirestore(app);
+const firebaseConfig = {"apiKey":"AIzaSyDB_HEkwm97f7s7grMZ9yh15HrZywz5oiw","authDomain":"slotify-7bcb2.firebaseapp.com","projectId":"slotify-7bcb2","storageBucket":"slotify-7bcb2.firebasestorage.app","messagingSenderId":"709282957955","appId":"1:709282957955:web:c3f48cd81af74a7428e9b6","measurementId":"G-MR5TRPQRSF"};
+const app = initializeApp(firebaseConfig); const auth = getAuth(app); const db = getFirestore(app);
+const statusEl = document.getElementById('status');
+const params = new URLSearchParams(location.search);
+const force = params.get('portal');
+const bookingSlug = params.get('b');
+function move(url){ location.replace(url); }
+if(force === 'admin') move('admin.html');
+if(force === 'business') move('business.html');
+if(force === 'booking') move(`booking.html${bookingSlug?`?b=${encodeURIComponent(bookingSlug)}`:''}`);
 onAuthStateChanged(auth, async user => {
- if(!user) return location.href="booking.html";
- const s = await getDoc(doc(db,"users",user.uid));
- const role = s.exists()?s.data().role:"customer";
- location.href = role==="superadmin" ? "admin.html" : role==="owner" ? "business.html" : "booking.html";
+  if(!user){
+    statusEl.textContent = bookingSlug ? 'לא נמצא משתמש מחובר. מפנה לעמוד ההזמנה של העסק.' : 'לא נמצא משתמש מחובר. כניסה רגילה למערכת תפנה את סופר אדמין לדשבורד שלו, ובעל עסק לפורטל שלו. לקוח קצה נכנס דרך קישור הזמנה.';
+    if(bookingSlug) move(`booking.html?b=${encodeURIComponent(bookingSlug)}`);
+    return;
+  }
+  statusEl.textContent = `זוהה משתמש ${user.email || ''}. בודק הרשאות...`;
+  try {
+    const profile = await getDoc(doc(db,'users',user.uid));
+    const role = profile.exists() ? (profile.data().role || 'owner') : 'owner';
+    if(role === 'superadmin'){ statusEl.textContent = 'התחברות אושרה. מפנה לדשבורד סופר אדמין.'; setTimeout(()=>move('admin.html'), 250); return; }
+    if(role === 'owner'){ statusEl.textContent = 'התחברות אושרה. מפנה לפורטל העסק.'; setTimeout(()=>move('business.html'), 250); return; }
+    statusEl.textContent = 'המשתמש מוגדר כלקוח קצה. מפנה לעמוד הזמנות.';
+    setTimeout(()=>move(`booking.html${bookingSlug?`?b=${encodeURIComponent(bookingSlug)}`:''}`), 250);
+  } catch (e){
+    statusEl.textContent = 'לא ניתן היה לזהות הרשאות. ברירת המחדל למשתמש מחובר היא פורטל העסק.';
+    setTimeout(()=>move('business.html'), 400);
+  }
 });
 </script></body></html>
