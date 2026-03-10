@@ -1,4 +1,4 @@
-const CACHE_NAME = "slotify-v8-cache-v1";
+const CACHE_NAME = "slotify-v8-cache-v2";
 
 const urlsToCache = [
   "./",
@@ -19,13 +19,25 @@ self.addEventListener("install", event => {
 self.addEventListener("activate", event => {
   event.waitUntil(
     caches.keys().then(keys =>
-      Promise.all(keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key)))
+      Promise.all(
+        keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key))
+      )
     )
   );
 });
 
 self.addEventListener("fetch", event => {
+  // מטפל רק בבקשות GET
+  if (event.request.method !== "GET") return;
+
   event.respondWith(
-    caches.match(event.request).then(response => response || fetch(event.request))
+    caches.match(event.request).then(cachedResponse => {
+      if (cachedResponse) return cachedResponse;
+
+      return fetch(event.request).catch(() => {
+        // fallback שקט כדי למנוע spam של שגיאות
+        return new Response("", { status: 404, statusText: "Not found" });
+      });
+    })
   );
 });
